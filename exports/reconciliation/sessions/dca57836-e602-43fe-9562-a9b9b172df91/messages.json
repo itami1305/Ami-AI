@@ -1,0 +1,40 @@
+{
+  "messages": [
+    {
+      "id": "sess_41313b3dd14c",
+      "session_id": "sess_41313b3dd14c",
+      "reconciliation_session_id": "dca57836-e602-43fe-9562-a9b9b172df91",
+      "chat_id": "chat_0",
+      "chat_name": "Tât cá Chưa dọc",
+      "type": "chat_session",
+      "role": "self",
+      "text": "m gia cong aong 08.02 'call 10 giờ 15.41 20/05/2026 check nhé\nm gia cong aong\nm gia cong aong 16120 'call 18.52 10 giờ check nhé T4 20/05/2026 15 giờ\n'call 10 giờ check nhé\n6-18/05/2026 14.24.46 +1,050,000 FT26138791137721 CUSTOMER MAI NGUYEN HOANG NGUYEN chuyen tien: TU: MAI NGUYEN HOANG 15 giờ NGUYEN NGUYEN VAN MINH 0987666666 MB 7-18/05/2026 09.56.57 +500,000 FT26138542150460 CUSTOMER Ck 39888. TU: NGUYEN DUC KHUE NGUYEN VAN MINH 0987666666 huy ami MB 15.41 20 gỉờ phần lọc dể 17.37 20/05/2026 21 già 40328 oai di 17.37 h Minh Ami 23 giờ Hôm nay em xin ultra\n15 giờ\nVietinBank 20 gỉờ phần lọc dể\n20 gỉờ phần lọc dể 18.37\nChuyỂn tlén thành công 21 già 138,000 VND oai di\nT5 14/05/2026 21 già oai di Nguyễn Chương h Minh Ami 23 giờ 207 731 866 em xin ultra 33788 18.08 ngay T2 18/05/2026\nh Minh Ami 23 giờ HO THI THANH MAI em xin ultra 0343679487 MB_Ngân hang Qunn dêl Nal dung NGUYEN VAN CHUONG ngay Chuyen tien\nssh - p 65002 u590569946@185.212.71.104 ngay\n82 637 235 58012 2 ngay 07.18 cung cấp api Đã gứi 3 ngay cũng được ạ\n2 ngay 08.02 cung cấp api 15.41 20/05/2026\n2 ngay 16120 cung cấp api 18 5\n3 ngay cũng được ạ",
+      "date": "20/05/2026",
+      "time": "",
+      "member_ids": [
+        "msg_8fced783ab",
+        "msg_a58baa7a47",
+        "msg_e08196a4ba",
+        "msg_38e1e7a687",
+        "msg_0929ebe477",
+        "msg_cb4cfc0774",
+        "msg_4500238cf9",
+        "msg_e057164e1a",
+        "msg_3f29719c18",
+        "msg_7f3d490073",
+        "msg_8e46936fb0",
+        "msg_e12b9b6148",
+        "msg_9bdc2de08c",
+        "msg_4047f3cf9e",
+        "msg_cac5256425",
+        "msg_6f1e564ab4"
+      ],
+      "member_count": 16,
+      "marker_before": "",
+      "marker_after": "",
+      "is_transaction": false,
+      "first_seen_at": "2026-05-22T00:46:03.050884+00:00",
+      "updated_at": "2026-05-22T00:46:43.735098+00:00"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+    "app_type": "zalo_web",
+    "chat_detected": true,
+  
+    "chat_region": {
+      "x": 0.19,
+      "y": 0.06,
+      "w": 0.62,
+      "h": 0.85
+    },
+  
+    "messages": [
+      {
+        "role": "user",
+        "text": "Hehe cảm ơn nha",
+        "time": "09:18",
+        "bbox": {
+            "x": 0.19,
+            "y": 0.06,
+            "w": 0.62,
+            "h": 0.85
+        }
+      }
+    ],
+  
+    "sidebar": [
+      {
+        "name": "Thanh Mai",
+        "bbox": {
+            "x": 0.72,
+            "y": 0.06,
+            "w": 0.25,
+            "h": 0.85
+        }
+      }
+    ]
+}

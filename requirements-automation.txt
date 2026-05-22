@@ -1,0 +1,3 @@
+# Win App — alias tương thích (đã gộp vào requirements.txt).
+# Giữ file này cho script/README cũ: pip install -r requirements-automation.txt
+-r requirements.txt

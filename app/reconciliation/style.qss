@@ -1,0 +1,64 @@
+/* RECONCILIATION MODULE */
+QLabel#rec_status_running {
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-weight: 600;
+    font-size: 9pt;
+    padding: 4px 12px;
+    border-radius: 999px;
+}
+QLabel#rec_status_idle {
+    background: #f3f4f6;
+    color: #6b7280;
+    font-weight: 600;
+    font-size: 9pt;
+    padding: 4px 12px;
+    border-radius: 999px;
+}
+QLabel#rec_bullet { color: #2563eb; font-weight: 700; }
+QLabel#rec_hint { color: #111827; font-size: 10pt; }
+QLabel#rec_field_label { color: #6b7280; font-size: 9pt; }
+QLineEdit#rec_entry {
+    background: #ffffff;
+    color: #111827;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 2px 5px;
+    font-size: 10pt;
+    min-height: 1.2em;
+}
+QLineEdit#rec_entry:focus { border-color: #2563eb; }
+QDateEdit#rec_date_edit {
+    background: #ffffff;
+    color: #111827;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 2px 8px;
+    font-size: 10pt;
+    min-height: 1.2em;
+}
+QDateEdit#rec_date_edit:focus { border-color: #2563eb; }
+QDateEdit#rec_date_edit::drop-down {
+    border: none;
+    width: 24px;
+}
+QComboBox#rec_combo {
+    background: #ffffff;
+    color: #111827;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 2px 5px;
+    font-size: 10pt;
+    min-height: 1.2em;
+}
+QComboBox#rec_combo:focus,
+QComboBox#rec_combo:on { border-color: #2563eb; }
+QComboBox#rec_combo::drop-down { border: none; width: 28px; }
+QComboBox#rec_combo QAbstractItemView {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    selection-background-color: #dbeafe;
+    selection-color: #1d4ed8;
+}
+QLabel#rec_view_label { color: #6b7280; font-size: 9pt; font-weight: 600; }

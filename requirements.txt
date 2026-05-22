@@ -1,0 +1,19 @@
+# Win App — dependencies (cài từ thư mục gốc Ami-AI)
+#   pip install -r requirements.txt
+
+# --- HTTP + UI ---
+requests>=2.31.0
+Pillow>=10.0.0
+PySide6>=6.6.0
+
+# --- Đối soát kế toán: scroll / click (pynput, thay pyautogui) ---
+pynput>=1.7.6
+
+# --- Windows: tìm & chụp cửa sổ Zalo / Chrome (capture.py, automation) ---
+pywin32>=306; sys_platform == "win32"
+
+# --- Windows: capture DXGI nhanh (tùy chọn — lỗi wheel thì bỏ dòng, fallback PIL) ---
+dxcam>=0.0.5; sys_platform == "win32"
+
+# --- Auto-reload supervisor (run_app.ps1 → app.dev_reload) ---
+watchfiles>=0.21.0
