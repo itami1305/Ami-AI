@@ -14,7 +14,9 @@ from backend.reconciliation.models import (
     TransactionRecord,
     TransactionResult,
 )
+from backend.reconciliation.transfer_receipt import is_transfer_receipt_text, parse_transfer_receipt
 from backend.transaction_money import GROUPED_AMOUNT, find_transaction_money, strict_money_line_match
+from backend.transaction_ref import find_transaction_ref
 
 SUMMARY_KEYWORDS = (
     "tổng hợp",
@@ -23,18 +25,25 @@ SUMMARY_KEYWORDS = (
     "giao dịch ngày",
 )
 
-CODE_PATTERN = re.compile(r"FT\d+", re.IGNORECASE)
 ACCOUNT_PATTERN = re.compile(r"\d{8,16}")
 NUMBERED_LINE = re.compile(r"^\s*\d+\.\s+", re.MULTILINE)
 
 BANK_MAP = {
     "vietcombank": "VCB",
     "vcb": "VCB",
+    "vietinbank": "VIETINBANK",
+    "vetinbank": "VIETINBANK",
     "mbbank": "MB",
     "mb bank": "MB",
     "napas": "NAPAS",
     "techcombank": "TCB",
     "tcb": "TCB",
+    "bidv": "BIDV",
+    "acb": "ACB",
+    "agribank": "AGRIBANK",
+    "sacombank": "SACOMBANK",
+    "tpbank": "TPBANK",
+    "vpbank": "VPBANK",
 }
 
 
@@ -48,17 +57,16 @@ def _detect_bank(text_lower: str) -> str:
 def _extract_fields(text: str) -> tuple[str, str, str, str]:
     text_lower = text.lower()
     mm = find_transaction_money(text)
-    code_match = CODE_PATTERN.search(text)
     account_match = ACCOUNT_PATTERN.search(text)
+    account = account_match.group(0) if account_match else ""
+    code = find_transaction_ref(text, account_number=account)
     if mm:
         amount = mm.group(0).strip()
-    elif code_match and (gm := GROUPED_AMOUNT.search(text)):
+    elif code and (gm := GROUPED_AMOUNT.search(text)):
         amount = gm.group(0).strip()
     else:
         amount = ""
-    code = code_match.group(0) if code_match else ""
     bank = _detect_bank(text_lower)
-    account = account_match.group(0) if account_match else ""
     return amount, code, bank, account
 
 
@@ -95,13 +103,20 @@ def make_dedupe_key(bank: str, amount: str, code: str, date: str, chat_id: str) 
 def detect_transaction(req: DetectTransactionRequest) -> TransactionResult:
     text = req.text or ""
 
+    # Ảnh bill CK nhiều dòng (VietinBank, 138,000 VND, IZOK..., …)
+    receipt = parse_transfer_receipt(text, sender=req.sender or "", time=req.time or "")
+    if receipt:
+        return receipt
+
     explicit_money = find_transaction_money(text)
-    code_match = CODE_PATTERN.search(text)
+    account_match = ACCOUNT_PATTERN.search(text)
+    account_hint = account_match.group(0) if account_match else ""
+    code_hint = find_transaction_ref(text, account_number=account_hint)
     grouped_match = GROUPED_AMOUNT.search(text)
-    # Tiền ghi rõ (VD 138,000 VND) hoặc SMS ngân hàng: FTxxx + số có phân nhóm nghìn
+    # Tiền ghi rõ (VD 138,000 VND) hoặc SMS ngân hàng: mã GD + số có phân nhóm nghìn
     is_tx = explicit_money is not None or (
-        code_match is not None and grouped_match is not None
-    )
+        bool(code_hint) and grouped_match is not None
+    ) or is_transfer_receipt_text(text)
 
     if not is_tx:
         return TransactionResult(is_transaction=False)

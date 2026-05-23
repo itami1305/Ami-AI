@@ -22,6 +22,8 @@ CaptureAppType = Literal["zalo_pc", "zalo_web", "messenger_web", "messenger_desk
 SourceType = Literal[
     "summary_text",
     "transfer_image",
+    "transfer_receipt_ocr",
+    "bank_sms_lines",
     "single_text",
     "llm_chat_segment",
     "rule_chat_segment",
@@ -159,6 +161,7 @@ class ReconciliationState:
     processed_messages: set[str] = field(default_factory=set)
     processed_chat_ids: set[str] = field(default_factory=set)
     dedupe_keys: set[str] = field(default_factory=set)
+    transaction_codes: set[str] = field(default_factory=set)
     records_by_id: dict[str, TransactionRecord] = field(default_factory=dict)
     messages_catalog: dict[str, dict] = field(default_factory=dict)
     # Bubble OCR thô (theo id); dùng rebuild session giữa các mốc ngày/giờ.
@@ -177,6 +180,8 @@ class ReconciliationState:
     capture_width: int = 0
     capture_height: int = 0
     running: bool = False
+    # True khi user bấm Dừng — vẫn chờ AI xử lý hàng đợi đoạn chat.
+    stop_requested: bool = False
     no_new_count: int = 0
     fsm_state: FsmState = FsmState.IDLE
     last_screenshot_path: str = ""

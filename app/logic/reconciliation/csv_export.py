@@ -55,8 +55,24 @@ def init_json_file(json_path: Path) -> None:
     json_path.write_text('{"transactions": []}\n', encoding="utf-8")
 
 
-def append_transaction_record(csv_path: Path, json_path: Path | None, record: TransactionRecord) -> None:
-    """Append một bản ghi (CSV luôn; JSON nếu json_path khác None)."""
+def _existing_transaction_codes(data: dict) -> set[str]:
+    codes: set[str] = set()
+    for item in data.get("transactions", []):
+        code = (item.get("transaction_code") or "").strip()
+        if code:
+            codes.add(code)
+    return codes
+
+
+def append_transaction_record(csv_path: Path, json_path: Path | None, record: TransactionRecord) -> bool:
+    """Append một bản ghi (CSV + JSON). Trả False nếu bỏ qua vì trùng mã giao dịch khác rỗng."""
+    code = (record.transaction_code or "").strip()
+    if json_path is not None:
+        init_json_file(json_path)
+        data = json.loads(json_path.read_text(encoding="utf-8"))
+        if code and code in _existing_transaction_codes(data):
+            return False
+
     row = record.to_csv_row()
     file_exists = csv_path.exists()
     with csv_path.open("a", newline="", encoding="utf-8-sig") as f:
@@ -66,7 +82,7 @@ def append_transaction_record(csv_path: Path, json_path: Path | None, record: Tr
         writer.writerow(row)
 
     if json_path is not None:
-        init_json_file(json_path)
         data = json.loads(json_path.read_text(encoding="utf-8"))
         data.setdefault("transactions", []).append(record.to_json_dict())
         json_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    return True

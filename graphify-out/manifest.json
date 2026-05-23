@@ -70,14 +70,14 @@
     "semantic_hash": "e1ab7c07c1e83c8a9943361c3b443204"
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\app\\logic\\reconciliation\\chat_sessions.py": {
-    "mtime": 1779355301.4094608,
-    "ast_hash": "456431cdbae17230f7e211e86f5f6d13",
-    "semantic_hash": "456431cdbae17230f7e211e86f5f6d13"
+    "mtime": 1779443933.7605722,
+    "ast_hash": "a098493054e3b9c67d21f35adfc11bdd",
+    "semantic_hash": ""
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\app\\logic\\reconciliation\\csv_export.py": {
-    "mtime": 1779411844.73658,
-    "ast_hash": "8ba6e21f16d98b59c87becefab4b60b6",
-    "semantic_hash": "8ba6e21f16d98b59c87becefab4b60b6"
+    "mtime": 1779444708.782679,
+    "ast_hash": "a4c8bc35a71fb8da8aa89d2c3306c9a3",
+    "semantic_hash": ""
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\app\\logic\\reconciliation\\date_filter.py": {
     "mtime": 1779411844.7255867,
@@ -90,19 +90,19 @@
     "semantic_hash": "6af3db089b731ffff157e2ee2509a86b"
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\app\\logic\\reconciliation\\models.py": {
-    "mtime": 1779411844.764566,
-    "ast_hash": "132ee00f2ac4b965086295dd40fa6c09",
-    "semantic_hash": "132ee00f2ac4b965086295dd40fa6c09"
+    "mtime": 1779444702.871265,
+    "ast_hash": "ce6833d2ef81dbb372f4ff55937c1e66",
+    "semantic_hash": ""
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\app\\logic\\reconciliation\\mouse_control.py": {
-    "mtime": 1779411844.7425804,
-    "ast_hash": "ef2d7e360470ccbd318363718769cb45",
-    "semantic_hash": "ef2d7e360470ccbd318363718769cb45"
+    "mtime": 1779415360.8756564,
+    "ast_hash": "6cfbe8a371d6e03ad2fc6a93e426de26",
+    "semantic_hash": ""
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\app\\logic\\reconciliation\\orchestrator.py": {
-    "mtime": 1779411844.7675676,
-    "ast_hash": "08302cb3d3c9667e32a6235a8d13e6a9",
-    "semantic_hash": "08302cb3d3c9667e32a6235a8d13e6a9"
+    "mtime": 1779444758.5872262,
+    "ast_hash": "ad9cbe0cde969c87463f0826031c2eaf",
+    "semantic_hash": ""
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\app\\logic\\reconciliation\\paths.py": {
     "mtime": 1779355301.4429038,
@@ -115,14 +115,14 @@
     "semantic_hash": "20bd31bc28a2ed83df51cb4a4b37044b"
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\app\\logic\\reconciliation\\screenshot.py": {
-    "mtime": 1779411844.7265854,
-    "ast_hash": "20154a15fa474b1eb37910a6c72afd52",
-    "semantic_hash": "20154a15fa474b1eb37910a6c72afd52"
+    "mtime": 1779415350.6087062,
+    "ast_hash": "e3817fbbacc08de1800068c445e08a2e",
+    "semantic_hash": ""
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\app\\logic\\reconciliation\\transaction_extract.py": {
-    "mtime": 1779411844.7265854,
-    "ast_hash": "80ba8c7bb44bcde5b884b785d0d7e048",
-    "semantic_hash": "80ba8c7bb44bcde5b884b785d0d7e048"
+    "mtime": 1779438082.7535863,
+    "ast_hash": "9a2ca26a6f37971e3719f309c5ff813e",
+    "semantic_hash": ""
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\app\\logic\\reconciliation\\window_checker.py": {
     "mtime": 1779411844.7595713,
@@ -133,76 +133,6 @@
     "mtime": 1779411844.764566,
     "ast_hash": "ad9279eae9e44ef6e18330d02d4e26c4",
     "semantic_hash": "ad9279eae9e44ef6e18330d02d4e26c4"
-  },
-  "D:\\ChuongNV\\Source\\Ami-AI\\app\\reconciliation\\automation.py": {
-    "mtime": 1779411844.739578,
-    "ast_hash": "030d77002e92b40d2216f75e0cfae191",
-    "semantic_hash": "030d77002e92b40d2216f75e0cfae191"
-  },
-  "D:\\ChuongNV\\Source\\Ami-AI\\app\\reconciliation\\bbox.py": {
-    "mtime": 1779411844.7605712,
-    "ast_hash": "69e16e0eb85274f5375dd8262ea56463",
-    "semantic_hash": "69e16e0eb85274f5375dd8262ea56463"
-  },
-  "D:\\ChuongNV\\Source\\Ami-AI\\app\\reconciliation\\capture.py": {
-    "mtime": 1779411844.7907038,
-    "ast_hash": "94e094b81775a03e4a8c90fdb795bd57",
-    "semantic_hash": "94e094b81775a03e4a8c90fdb795bd57"
-  },
-  "D:\\ChuongNV\\Source\\Ami-AI\\app\\reconciliation\\chat_sessions.py": {
-    "mtime": 1779411844.735578,
-    "ast_hash": "456431cdbae17230f7e211e86f5f6d13",
-    "semantic_hash": "456431cdbae17230f7e211e86f5f6d13"
-  },
-  "D:\\ChuongNV\\Source\\Ami-AI\\app\\reconciliation\\csv_export.py": {
-    "mtime": 1779411844.7184572,
-    "ast_hash": "a0dea79529375967071b53b35216ae0e",
-    "semantic_hash": "a0dea79529375967071b53b35216ae0e"
-  },
-  "D:\\ChuongNV\\Source\\Ami-AI\\app\\reconciliation\\dialogs.py": {
-    "mtime": 1779411844.7345803,
-    "ast_hash": "bfbba04a64272a0719cf7363b89672ca",
-    "semantic_hash": "bfbba04a64272a0719cf7363b89672ca"
-  },
-  "D:\\ChuongNV\\Source\\Ami-AI\\app\\reconciliation\\logic.py": {
-    "mtime": 1779411844.7675676,
-    "ast_hash": "c766b6615dbb383f053eea3dc4fe8d05",
-    "semantic_hash": "c766b6615dbb383f053eea3dc4fe8d05"
-  },
-  "D:\\ChuongNV\\Source\\Ami-AI\\app\\reconciliation\\message_store.py": {
-    "mtime": 1779411844.715462,
-    "ast_hash": "121d2b4c29e242368df314999e27e61e",
-    "semantic_hash": "121d2b4c29e242368df314999e27e61e"
-  },
-  "D:\\ChuongNV\\Source\\Ami-AI\\app\\reconciliation\\models.py": {
-    "mtime": 1779411844.7595713,
-    "ast_hash": "8631c0e2f2b942b316fd4eca710393b5",
-    "semantic_hash": "8631c0e2f2b942b316fd4eca710393b5"
-  },
-  "D:\\ChuongNV\\Source\\Ami-AI\\app\\reconciliation\\paths.py": {
-    "mtime": 1779411844.764566,
-    "ast_hash": "9111ea86594bf25023bad8c235aecd9a",
-    "semantic_hash": "9111ea86594bf25023bad8c235aecd9a"
-  },
-  "D:\\ChuongNV\\Source\\Ami-AI\\app\\reconciliation\\planner.py": {
-    "mtime": 1779411844.7385843,
-    "ast_hash": "97ff8deb4a20b4652b7762e4ab8349ea",
-    "semantic_hash": "97ff8deb4a20b4652b7762e4ab8349ea"
-  },
-  "D:\\ChuongNV\\Source\\Ami-AI\\app\\reconciliation\\transaction_extract.py": {
-    "mtime": 1779411844.719569,
-    "ast_hash": "a8161d3ec340347f0e795649ab910c47",
-    "semantic_hash": "a8161d3ec340347f0e795649ab910c47"
-  },
-  "D:\\ChuongNV\\Source\\Ami-AI\\app\\reconciliation\\ui.py": {
-    "mtime": 1779411844.715462,
-    "ast_hash": "971396f866521ee11ec28b28e70541ee",
-    "semantic_hash": "971396f866521ee11ec28b28e70541ee"
-  },
-  "D:\\ChuongNV\\Source\\Ami-AI\\app\\reconciliation\\__init__.py": {
-    "mtime": 1779411844.7675676,
-    "ast_hash": "502d0fb375f55f6c377727552b9e64c5",
-    "semantic_hash": "502d0fb375f55f6c377727552b9e64c5"
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\app\\shared\\api_client.py": {
     "mtime": 1779411844.7255867,
@@ -250,9 +180,9 @@
     "semantic_hash": "2a1deac368955ff4ace0e1fcfcf83827"
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\app\\ui\\reconciliation\\reconciliation_widget.py": {
-    "mtime": 1779411844.7585669,
-    "ast_hash": "0e92dd5abf8de17a91ef4378e046106b",
-    "semantic_hash": "0e92dd5abf8de17a91ef4378e046106b"
+    "mtime": 1779419029.1645768,
+    "ast_hash": "d653ce538b0c5f561e7c9bd0eb6771d0",
+    "semantic_hash": ""
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\app\\ui\\reconciliation\\__init__.py": {
     "mtime": 1779411844.735578,
@@ -265,14 +195,14 @@
     "semantic_hash": "e00f04cb3a93c39f7ccf440b8d84ed66"
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\backend\\main.py": {
-    "mtime": 1779411844.7345803,
+    "mtime": 1779416808.2739215,
     "ast_hash": "63ab260276c75b041c4153d3f0733a06",
     "semantic_hash": "63ab260276c75b041c4153d3f0733a06"
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\backend\\transaction_money.py": {
-    "mtime": 1779411844.735578,
-    "ast_hash": "5c79c78461fd202732fd6d79d255b0e1",
-    "semantic_hash": "5c79c78461fd202732fd6d79d255b0e1"
+    "mtime": 1779418489.8752508,
+    "ast_hash": "1b4155e176de6aad043f1277c8d0def3",
+    "semantic_hash": ""
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\backend\\__init__.py": {
     "mtime": 1779411844.735578,
@@ -355,14 +285,14 @@
     "semantic_hash": "d9bf8f3ec13d2c67bb32613d5865e952"
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\backend\\reconciliation\\models.py": {
-    "mtime": 1779411844.7555695,
-    "ast_hash": "cf31ed975218470279804ee8d343421a",
-    "semantic_hash": "cf31ed975218470279804ee8d343421a"
+    "mtime": 1779443935.35638,
+    "ast_hash": "7241014d0dcb4fdd562808a16f900248",
+    "semantic_hash": ""
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\backend\\reconciliation\\ocr_engine.py": {
-    "mtime": 1779411844.7865593,
-    "ast_hash": "628ae364adb23b12029f23e9c7286bd7",
-    "semantic_hash": "628ae364adb23b12029f23e9c7286bd7"
+    "mtime": 1779437818.9238272,
+    "ast_hash": "f9765538de0f8eda724866fe957bcdeb",
+    "semantic_hash": ""
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\backend\\reconciliation\\ocr_service.py": {
     "mtime": 1779411844.7605712,
@@ -385,9 +315,9 @@
     "semantic_hash": "0df03739e8b431a21c9c5310660b56fc"
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\backend\\reconciliation\\segment_queue.py": {
-    "mtime": 1779411844.771566,
-    "ast_hash": "e789835f5a09b4499dd41b402632898d",
-    "semantic_hash": "e789835f5a09b4499dd41b402632898d"
+    "mtime": 1779443947.3053286,
+    "ast_hash": "1b1e45df40fe64522d874a9691806bae",
+    "semantic_hash": ""
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\backend\\reconciliation\\stop_datetime.py": {
     "mtime": 1779411844.7425804,
@@ -395,14 +325,14 @@
     "semantic_hash": "75114fc49832bee44d7139463d6766e6"
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\backend\\reconciliation\\transaction_detector.py": {
-    "mtime": 1779411844.7785802,
-    "ast_hash": "20e3d88b6444e4bd53bdeda80e6df554",
-    "semantic_hash": "20e3d88b6444e4bd53bdeda80e6df554"
+    "mtime": 1779437817.9373949,
+    "ast_hash": "edee24c230d93db6f0e4814b37ec9481",
+    "semantic_hash": ""
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\backend\\reconciliation\\transaction_split_service.py": {
-    "mtime": 1779411844.735578,
-    "ast_hash": "f7a3798e77dd236e9924c8dd6f84b076",
-    "semantic_hash": "f7a3798e77dd236e9924c8dd6f84b076"
+    "mtime": 1779443958.7432907,
+    "ast_hash": "be13ca4ef3ed973398818a05658a69c5",
+    "semantic_hash": ""
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\backend\\reconciliation\\__init__.py": {
     "mtime": 1779411844.73658,
@@ -410,9 +340,9 @@
     "semantic_hash": "bee67843d7a9dbe4e4c9dfc76b00bc63"
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\backend\\reconciliation\\vision\\yolo_layout.py": {
-    "mtime": 1779411844.764566,
-    "ast_hash": "41b49753b46e7ff6b05af1d3f8d316e9",
-    "semantic_hash": "41b49753b46e7ff6b05af1d3f8d316e9"
+    "mtime": 1779413856.4136012,
+    "ast_hash": "134c678bf894f8e3b461319e98133e21",
+    "semantic_hash": ""
   },
   "D:\\ChuongNV\\Source\\Ami-AI\\backend\\reconciliation\\vision\\__init__.py": {
     "mtime": 1779411844.745576,
@@ -449,24 +379,504 @@
     "ast_hash": "6cfba6ed2b040d937b8641b0c232ecd7",
     "semantic_hash": "6cfba6ed2b040d937b8641b0c232ecd7"
   },
-  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\b7034a3a-7890-4bdf-a487-df6963910fbb\\messages.json": {
-    "mtime": 1779381574.442319,
-    "ast_hash": "a9a51b5bcd8a4adfeda16398e663dc2b",
-    "semantic_hash": "a9a51b5bcd8a4adfeda16398e663dc2b"
+  "D:\\ChuongNV\\Source\\Ami-AI\\LUONG_HE_THONG.md": {
+    "mtime": 1779413694.7586224,
+    "ast_hash": "5a6ac18bc9f133ba9548c9fb4d5a89b4",
+    "semantic_hash": ""
   },
-  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\b7034a3a-7890-4bdf-a487-df6963910fbb\\transactions.json": {
-    "mtime": 1779381446.624619,
+  "D:\\ChuongNV\\Source\\Ami-AI\\markdown.md": {
+    "mtime": 1779413696.8497498,
+    "ast_hash": "cfe198cf446f4ec42f17288d7a3ddacf",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\PROJECT_STRUCTURE.md": {
+    "mtime": 1779413683.069682,
+    "ast_hash": "59881f4ad97cffc1aecda76de3584cb2",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\README.md": {
+    "mtime": 1779411844.7265854,
+    "ast_hash": "ed4e36c6d3da69530ce9d3a1d9d81322",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\requirements-automation.txt": {
+    "mtime": 1779411844.7865593,
+    "ast_hash": "f07e915a67932f9f23a9555160f611ee",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\requirements-backend.txt": {
+    "mtime": 1779411844.771566,
+    "ast_hash": "91662364e726d8c9ce4cf3e17d205251",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\requirements.txt": {
+    "mtime": 1779411844.7585669,
+    "ast_hash": "d714c1ea9a5bab0d9eb4179564c30b24",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\structure.md": {
+    "mtime": 1779413680.6332643,
+    "ast_hash": "fe1b1900bb3ec31fc5c8ab696c6dd7d6",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\54d2e8f2-39fb-4a2c-9cdc-735686cbd60d\\messages.json": {
+    "mtime": 1779417086.0336025,
+    "ast_hash": "418a3e9cbb9f1cd2335ca5321ed02dd6",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\54d2e8f2-39fb-4a2c-9cdc-735686cbd60d\\transactions.json": {
+    "mtime": 1779416999.3265793,
+    "ast_hash": "18dc83df7b508d8ec0bc4a0b73292b4c",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\54d2e8f2-39fb-4a2c-9cdc-735686cbd60d\\screenshots\\chat_001.jpg": {
+    "mtime": 1779416846.5704575,
+    "ast_hash": "4208115226b427358b5a56d72287c747",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\54d2e8f2-39fb-4a2c-9cdc-735686cbd60d\\screenshots\\chat_002.jpg": {
+    "mtime": 1779416867.5100615,
+    "ast_hash": "561bfde7357278b79364cb209ef8c971",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\54d2e8f2-39fb-4a2c-9cdc-735686cbd60d\\screenshots\\chat_003.jpg": {
+    "mtime": 1779416883.4081562,
+    "ast_hash": "7f4e9fc6ddbc99f861c24c3670c95a44",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\54d2e8f2-39fb-4a2c-9cdc-735686cbd60d\\screenshots\\chat_004.jpg": {
+    "mtime": 1779416895.6626253,
+    "ast_hash": "ee9faf0fd9ffe302b17281869eafc6ff",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\54d2e8f2-39fb-4a2c-9cdc-735686cbd60d\\screenshots\\chat_005.jpg": {
+    "mtime": 1779416906.6048968,
+    "ast_hash": "e213dd44842b77f39be0139f06824138",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\54d2e8f2-39fb-4a2c-9cdc-735686cbd60d\\screenshots\\chat_006.jpg": {
+    "mtime": 1779416919.6749525,
+    "ast_hash": "c6955f5aa157582a6446e9d0d32557d7",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\54d2e8f2-39fb-4a2c-9cdc-735686cbd60d\\screenshots\\chat_007.jpg": {
+    "mtime": 1779416932.2905774,
+    "ast_hash": "e402561cc3ba36960e8f0ff6fae3f313",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\54d2e8f2-39fb-4a2c-9cdc-735686cbd60d\\screenshots\\chat_008.jpg": {
+    "mtime": 1779416943.8109586,
+    "ast_hash": "027f94ca02094437a0eaa996982ceae9",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\54d2e8f2-39fb-4a2c-9cdc-735686cbd60d\\screenshots\\chat_009.jpg": {
+    "mtime": 1779416956.802004,
+    "ast_hash": "6bc5d8815d91c102b716154778145919",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\backend\\reconciliation\\transfer_receipt.py": {
+    "mtime": 1779438080.2381852,
+    "ast_hash": "7053ce784f5e3797f7dfba8e19cce352",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\54d2e8f2-39fb-4a2c-9cdc-735686cbd60d\\screenshots\\chat_010.jpg": {
+    "mtime": 1779416977.3760371,
+    "ast_hash": "585a4b40f5eef71a2e695d7dfc14f673",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\54d2e8f2-39fb-4a2c-9cdc-735686cbd60d\\screenshots\\chat_011.jpg": {
+    "mtime": 1779417000.575317,
+    "ast_hash": "d4c6e41bc13434a2016f0d969b199d4a",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\54d2e8f2-39fb-4a2c-9cdc-735686cbd60d\\screenshots\\chat_012.jpg": {
+    "mtime": 1779417013.7410483,
+    "ast_hash": "5e3da0055bf88a124061e11ef8d6a2aa",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\54d2e8f2-39fb-4a2c-9cdc-735686cbd60d\\screenshots\\chat_013.jpg": {
+    "mtime": 1779417037.373671,
+    "ast_hash": "7c98320d01ddd080097f316c0b6ebf8e",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\54d2e8f2-39fb-4a2c-9cdc-735686cbd60d\\screenshots\\chat_014.jpg": {
+    "mtime": 1779417070.7312458,
+    "ast_hash": "2689345a1ad7c3b49ca2738d1ad76fba",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\d883ea6e-d5a4-46f7-964c-e1c4653585cc\\messages.json": {
+    "mtime": 1779417534.2118485,
+    "ast_hash": "b641e24a9b62f9fc6134a7489af805b4",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\d883ea6e-d5a4-46f7-964c-e1c4653585cc\\transactions.json": {
+    "mtime": 1779417480.616948,
     "ast_hash": "679d276eb3308ba9a869e00ad35d2d69",
-    "semantic_hash": "679d276eb3308ba9a869e00ad35d2d69"
+    "semantic_hash": ""
   },
-  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\dca57836-e602-43fe-9562-a9b9b172df91\\messages.json": {
-    "mtime": 1779410804.7359965,
-    "ast_hash": "5353603fe556a251f7b9f19e60af05f7",
-    "semantic_hash": "5353603fe556a251f7b9f19e60af05f7"
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\d883ea6e-d5a4-46f7-964c-e1c4653585cc\\screenshots\\chat_001.jpg": {
+    "mtime": 1779417498.9964561,
+    "ast_hash": "4208115226b427358b5a56d72287c747",
+    "semantic_hash": ""
   },
-  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\dca57836-e602-43fe-9562-a9b9b172df91\\transactions.json": {
-    "mtime": 1779410612.4907863,
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\d883ea6e-d5a4-46f7-964c-e1c4653585cc\\screenshots\\chat_002.jpg": {
+    "mtime": 1779417519.8994987,
+    "ast_hash": "7b0180ffeb3598e547adf5c64027ad77",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\e3929130-7212-4c28-ac5b-30770926dca2\\messages.json": {
+    "mtime": 1779418255.3884964,
+    "ast_hash": "c387d62f6b53d25d6d5de0727866f3db",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\e3929130-7212-4c28-ac5b-30770926dca2\\transactions.json": {
+    "mtime": 1779418203.4499192,
     "ast_hash": "679d276eb3308ba9a869e00ad35d2d69",
-    "semantic_hash": "679d276eb3308ba9a869e00ad35d2d69"
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\e3929130-7212-4c28-ac5b-30770926dca2\\screenshots\\chat_001.jpg": {
+    "mtime": 1779418221.888924,
+    "ast_hash": "add0061f474d6b5564d4a8cfd7c69b14",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\e3929130-7212-4c28-ac5b-30770926dca2\\screenshots\\chat_002.jpg": {
+    "mtime": 1779418237.5817883,
+    "ast_hash": "b3d8bf2e3406e6bc4688bb0fef3ab328",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\e3929130-7212-4c28-ac5b-30770926dca2\\screenshots\\chat_003.jpg": {
+    "mtime": 1779418246.5487287,
+    "ast_hash": "67a9cc600b750ebe4b73e0f3fc5c2fcd",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\fb194e1c-2cb7-45bf-8354-7c66eb06d85f\\messages.json": {
+    "mtime": 1779418838.33902,
+    "ast_hash": "8ebf601bcb4f4e5917dee488715ba5d5",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\fb194e1c-2cb7-45bf-8354-7c66eb06d85f\\transactions.json": {
+    "mtime": 1779418774.999842,
+    "ast_hash": "9a04cb2cf6a3b5cc800b5af42bc51a56",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\fb194e1c-2cb7-45bf-8354-7c66eb06d85f\\screenshots\\chat_001.jpg": {
+    "mtime": 1779418638.79844,
+    "ast_hash": "e001d500a54af8cb77c6a28c449ab30d",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\fb194e1c-2cb7-45bf-8354-7c66eb06d85f\\screenshots\\chat_002.jpg": {
+    "mtime": 1779418653.9998665,
+    "ast_hash": "7b0180ffeb3598e547adf5c64027ad77",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\fb194e1c-2cb7-45bf-8354-7c66eb06d85f\\screenshots\\chat_003.jpg": {
+    "mtime": 1779418665.5019996,
+    "ast_hash": "7f4e9fc6ddbc99f861c24c3670c95a44",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\fb194e1c-2cb7-45bf-8354-7c66eb06d85f\\screenshots\\chat_004.jpg": {
+    "mtime": 1779418675.5681033,
+    "ast_hash": "d65fb0ba21ad7e0d972dc5fe89238720",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\fb194e1c-2cb7-45bf-8354-7c66eb06d85f\\screenshots\\chat_005.jpg": {
+    "mtime": 1779418685.035616,
+    "ast_hash": "e213dd44842b77f39be0139f06824138",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\fb194e1c-2cb7-45bf-8354-7c66eb06d85f\\screenshots\\chat_006.jpg": {
+    "mtime": 1779418696.500689,
+    "ast_hash": "16366c31293846eeccaccf94b85735ff",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\fb194e1c-2cb7-45bf-8354-7c66eb06d85f\\screenshots\\chat_007.jpg": {
+    "mtime": 1779418706.864868,
+    "ast_hash": "e402561cc3ba36960e8f0ff6fae3f313",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\fb194e1c-2cb7-45bf-8354-7c66eb06d85f\\screenshots\\chat_008.jpg": {
+    "mtime": 1779418716.57859,
+    "ast_hash": "027f94ca02094437a0eaa996982ceae9",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\fb194e1c-2cb7-45bf-8354-7c66eb06d85f\\screenshots\\chat_009.jpg": {
+    "mtime": 1779418727.8812115,
+    "ast_hash": "6bc5d8815d91c102b716154778145919",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\fb194e1c-2cb7-45bf-8354-7c66eb06d85f\\screenshots\\chat_010.jpg": {
+    "mtime": 1779418746.2380931,
+    "ast_hash": "585a4b40f5eef71a2e695d7dfc14f673",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\fb194e1c-2cb7-45bf-8354-7c66eb06d85f\\screenshots\\chat_011.jpg": {
+    "mtime": 1779418767.0065744,
+    "ast_hash": "d4c6e41bc13434a2016f0d969b199d4a",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\fb194e1c-2cb7-45bf-8354-7c66eb06d85f\\screenshots\\chat_012.jpg": {
+    "mtime": 1779418776.2404666,
+    "ast_hash": "5e3da0055bf88a124061e11ef8d6a2aa",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\fb194e1c-2cb7-45bf-8354-7c66eb06d85f\\screenshots\\chat_013.jpg": {
+    "mtime": 1779418796.8283372,
+    "ast_hash": "7c98320d01ddd080097f316c0b6ebf8e",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\fb194e1c-2cb7-45bf-8354-7c66eb06d85f\\screenshots\\chat_014.jpg": {
+    "mtime": 1779418825.6169944,
+    "ast_hash": "dd938c402d3c5cb165b74f77318df471",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\2274c86a-0346-4ef5-9a5a-968889f68366\\messages.json": {
+    "mtime": 1779419190.1831234,
+    "ast_hash": "84ee877c25edbbca1c9f7c0aaab20d66",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\2274c86a-0346-4ef5-9a5a-968889f68366\\transactions.json": {
+    "mtime": 1779419242.7727828,
+    "ast_hash": "36d4949dc5d011ea6f1823f7cc66a980",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\2274c86a-0346-4ef5-9a5a-968889f68366\\screenshots\\chat_001.jpg": {
+    "mtime": 1779419126.2332757,
+    "ast_hash": "20fc0f42b2358e54786a4037b2d262c3",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\2274c86a-0346-4ef5-9a5a-968889f68366\\screenshots\\chat_002.jpg": {
+    "mtime": 1779419146.5137804,
+    "ast_hash": "4b62a06c11c2a0ba8009afbfeff2519d",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\2274c86a-0346-4ef5-9a5a-968889f68366\\screenshots\\chat_003.jpg": {
+    "mtime": 1779419168.5578413,
+    "ast_hash": "3d9f16bd55f1718f7badd15a8fbbbd0b",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\2274c86a-0346-4ef5-9a5a-968889f68366\\screenshots\\chat_004.jpg": {
+    "mtime": 1779419179.9759266,
+    "ast_hash": "89fc9d4a721c8e9eb0170ba132372ad5",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\770e629f-90f2-4aed-aa57-0138a431979d\\messages.json": {
+    "mtime": 1779424085.7552514,
+    "ast_hash": "30d8ccf8a8ff16bd604fe4b5c56e5c5e",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\770e629f-90f2-4aed-aa57-0138a431979d\\transactions.json": {
+    "mtime": 1779424075.3901658,
+    "ast_hash": "1e92588f4ebe55e5a1903bb40093da4e",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\770e629f-90f2-4aed-aa57-0138a431979d\\screenshots\\chat_001.jpg": {
+    "mtime": 1779424002.451065,
+    "ast_hash": "6b5654f0858549520e8b74ca6f6f27df",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\770e629f-90f2-4aed-aa57-0138a431979d\\screenshots\\chat_002.jpg": {
+    "mtime": 1779424017.9657564,
+    "ast_hash": "a2e2229cbca22a2ad05c2d7406974fa1",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\770e629f-90f2-4aed-aa57-0138a431979d\\screenshots\\chat_003.jpg": {
+    "mtime": 1779424029.8027313,
+    "ast_hash": "5abbd471fa39dfd8c9c9ddea4f777b8a",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\770e629f-90f2-4aed-aa57-0138a431979d\\screenshots\\chat_004.jpg": {
+    "mtime": 1779424039.3643324,
+    "ast_hash": "0d5442ca76907bb751951cb9fd65f0cc",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\770e629f-90f2-4aed-aa57-0138a431979d\\screenshots\\chat_005.jpg": {
+    "mtime": 1779424047.8478584,
+    "ast_hash": "8f3e636f6813b792fa0ef1292c7ff253",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\770e629f-90f2-4aed-aa57-0138a431979d\\screenshots\\chat_006.jpg": {
+    "mtime": 1779424057.875475,
+    "ast_hash": "39f1868efaa688875b81afa9479321a9",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\770e629f-90f2-4aed-aa57-0138a431979d\\screenshots\\chat_007.jpg": {
+    "mtime": 1779424067.7779665,
+    "ast_hash": "e956452794c88aae0350dcb6d12e75a3",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\770e629f-90f2-4aed-aa57-0138a431979d\\screenshots\\chat_008.jpg": {
+    "mtime": 1779424076.6492102,
+    "ast_hash": "be0d7b4278f5c8433ceede370d6f8414",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\770e629f-90f2-4aed-aa57-0138a431979d\\screenshots\\chat_009.jpg": {
+    "mtime": 1779422632.4913893,
+    "ast_hash": "62c8252d7c7b680c125c7ddabecc5bbf",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\770e629f-90f2-4aed-aa57-0138a431979d\\screenshots\\chat_010.jpg": {
+    "mtime": 1779422657.4731486,
+    "ast_hash": "fe3dfb543d470408016f87c8283b814e",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\770e629f-90f2-4aed-aa57-0138a431979d\\screenshots\\chat_011.jpg": {
+    "mtime": 1779422679.0609467,
+    "ast_hash": "dc0223154d92108237d44480ce715fec",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\770e629f-90f2-4aed-aa57-0138a431979d\\screenshots\\chat_012.jpg": {
+    "mtime": 1779422699.7404578,
+    "ast_hash": "3f9d4c757b8a22a22b2bb3c33fb894ae",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\770e629f-90f2-4aed-aa57-0138a431979d\\screenshots\\chat_013.jpg": {
+    "mtime": 1779422717.4553416,
+    "ast_hash": "a79ac507c1ba1a8812603ec6015d414a",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\backend\\transaction_ref.py": {
+    "mtime": 1779437808.592113,
+    "ast_hash": "1c72ac232e7a57c3ffce6d1e4ffdd9ac",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\collection.json": {
+    "mtime": 1779437275.7788484,
+    "ast_hash": "879afb676f3aa06e6c961590a3613557",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\a008a2e4-0920-434c-8259-64526cb9ddfd\\messages.json": {
+    "mtime": 1779437932.4315176,
+    "ast_hash": "ee30797a7a304f941d5744a48a8981d2",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\a008a2e4-0920-434c-8259-64526cb9ddfd\\transactions.json": {
+    "mtime": 1779437932.2961848,
+    "ast_hash": "83e83362e50e4c99d6aa1b04405bbf80",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\a008a2e4-0920-434c-8259-64526cb9ddfd\\screenshots\\chat_001.jpg": {
+    "mtime": 1779437907.2954555,
+    "ast_hash": "f363ac95e3248a048a85516338bcb493",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\a008a2e4-0920-434c-8259-64526cb9ddfd\\screenshots\\chat_002.jpg": {
+    "mtime": 1779437922.1254485,
+    "ast_hash": "112556a216319a0aab8526271d0322e7",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\aa41d90a-e59e-4991-aa08-bdf40bdc9edd\\messages.json": {
+    "mtime": 1779441194.0097177,
+    "ast_hash": "f8a4344d73f6b239acda2e783a495385",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\aa41d90a-e59e-4991-aa08-bdf40bdc9edd\\transactions.json": {
+    "mtime": 1779440752.748895,
+    "ast_hash": "679d276eb3308ba9a869e00ad35d2d69",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\aa41d90a-e59e-4991-aa08-bdf40bdc9edd\\screenshots\\chat_001.jpg": {
+    "mtime": 1779440771.753335,
+    "ast_hash": "6ef8877e41bde773723f4039233c9985",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\aa41d90a-e59e-4991-aa08-bdf40bdc9edd\\screenshots\\chat_002.jpg": {
+    "mtime": 1779440802.937419,
+    "ast_hash": "1d71c707965c3f6d0d8d9d49750c34eb",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\aa41d90a-e59e-4991-aa08-bdf40bdc9edd\\screenshots\\chat_003.jpg": {
+    "mtime": 1779440833.728714,
+    "ast_hash": "b4936b56852c0e00148ff19821b08c89",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\aa41d90a-e59e-4991-aa08-bdf40bdc9edd\\screenshots\\chat_004.jpg": {
+    "mtime": 1779440860.1703894,
+    "ast_hash": "11146974e04533dcf8596a24e8d61d9d",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\aa41d90a-e59e-4991-aa08-bdf40bdc9edd\\screenshots\\chat_005.jpg": {
+    "mtime": 1779440880.35217,
+    "ast_hash": "873e165b3a1af215cd7585d346781d0c",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\aa41d90a-e59e-4991-aa08-bdf40bdc9edd\\screenshots\\chat_006.jpg": {
+    "mtime": 1779440915.715829,
+    "ast_hash": "fdc4ca63901c1b2b2708049eead0a891",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\aa41d90a-e59e-4991-aa08-bdf40bdc9edd\\screenshots\\chat_007.jpg": {
+    "mtime": 1779440940.347035,
+    "ast_hash": "9f0c165b5240952f19f79d8c0f95717e",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\aa41d90a-e59e-4991-aa08-bdf40bdc9edd\\screenshots\\chat_008.jpg": {
+    "mtime": 1779440964.6851697,
+    "ast_hash": "98b7e488d40a410d28bd979114827fcf",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\aa41d90a-e59e-4991-aa08-bdf40bdc9edd\\screenshots\\chat_009.jpg": {
+    "mtime": 1779440992.5108557,
+    "ast_hash": "4a390737dca78f063c594a3553a72e3e",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\aa41d90a-e59e-4991-aa08-bdf40bdc9edd\\screenshots\\chat_010.jpg": {
+    "mtime": 1779441020.5208733,
+    "ast_hash": "9ed23d8e38c8402b5b80a8b3563112f5",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\aa41d90a-e59e-4991-aa08-bdf40bdc9edd\\screenshots\\chat_011.jpg": {
+    "mtime": 1779441051.4240777,
+    "ast_hash": "a330e6e604042138049376433c6c3e7d",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\aa41d90a-e59e-4991-aa08-bdf40bdc9edd\\screenshots\\chat_012.jpg": {
+    "mtime": 1779441078.5987375,
+    "ast_hash": "3480d3da7bb9cb637c744a2dc701d872",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\aa41d90a-e59e-4991-aa08-bdf40bdc9edd\\screenshots\\chat_013.jpg": {
+    "mtime": 1779441110.6284215,
+    "ast_hash": "0e7358f3d6d6a19eb9a849ffb999e71d",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\aa41d90a-e59e-4991-aa08-bdf40bdc9edd\\screenshots\\chat_014.jpg": {
+    "mtime": 1779441131.8489578,
+    "ast_hash": "50d6b50c5cca54d14a840eac6256a6b9",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\aa41d90a-e59e-4991-aa08-bdf40bdc9edd\\screenshots\\chat_015.jpg": {
+    "mtime": 1779441152.3753915,
+    "ast_hash": "9bbda84f7fa2550c3f42f1908006d17c",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\d6f69a7a-07a5-49c7-ba57-7aad194631a0\\messages.json": {
+    "mtime": 1779444206.475344,
+    "ast_hash": "23bf7979d5c96e8f7e27dd5f654b4a9e",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\d6f69a7a-07a5-49c7-ba57-7aad194631a0\\transactions.json": {
+    "mtime": 1779444195.32069,
+    "ast_hash": "ffaaadc0a0f9a1d8025183cc7e1c8783",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\d6f69a7a-07a5-49c7-ba57-7aad194631a0\\screenshots\\chat_001.jpg": {
+    "mtime": 1779444151.10753,
+    "ast_hash": "f363ac95e3248a048a85516338bcb493",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\d6f69a7a-07a5-49c7-ba57-7aad194631a0\\screenshots\\chat_002.jpg": {
+    "mtime": 1779444171.2372875,
+    "ast_hash": "112556a216319a0aab8526271d0322e7",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\d6f69a7a-07a5-49c7-ba57-7aad194631a0\\screenshots\\chat_003.jpg": {
+    "mtime": 1779444185.3872533,
+    "ast_hash": "6fbc9cdd1da7d888b896109fd75f79d8",
+    "semantic_hash": ""
+  },
+  "D:\\ChuongNV\\Source\\Ami-AI\\exports\\reconciliation\\sessions\\d6f69a7a-07a5-49c7-ba57-7aad194631a0\\screenshots\\chat_004.jpg": {
+    "mtime": 1779444196.5949416,
+    "ast_hash": "04d1a03d7ecca92f28f5b885be72c8ed",
+    "semantic_hash": ""
   }
 }

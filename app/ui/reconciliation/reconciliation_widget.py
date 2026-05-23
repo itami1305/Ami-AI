@@ -242,6 +242,7 @@ class ReconciliationWidget(QWidget):
 
     def _on_stop(self) -> None:
         self._logic.stop()
+        self._set_status(True, "Chờ AI phân tích đoạn chat...")
 
     def _start_worker(self, kind: str, **kwargs) -> None:
         self._thread = QThread(self)

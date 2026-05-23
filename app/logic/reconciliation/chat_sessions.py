@@ -7,13 +7,22 @@ Mỗi session = một dòng trong messages.json (type=chat_session), chứa toà
 from __future__ import annotations
 
 import hashlib
+import logging
 import re
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 from backend.reconciliation.date_separator import (
     extract_date_label,
     is_date_separator_text,
     resolve_chat_date_display,
+)
+from backend.reconciliation.models import DetectTransactionRequest
+from backend.reconciliation.transaction_detector import detect_transaction, is_summary_message
+from backend.reconciliation.transfer_receipt import (
+    is_multi_transaction_segment,
+    is_transfer_receipt_text,
 )
 
 
@@ -141,6 +150,24 @@ def build_chat_sessions(
         if is_new:
             new_count += 1
 
+        was_tx = bool(prev.get("is_transaction", False))
+        tx_flag = was_tx
+        if combined and not tx_flag:
+            tx_flag = (
+                is_multi_transaction_segment(combined)
+                or is_transfer_receipt_text(combined)
+                or is_summary_message(combined)
+                or detect_transaction(DetectTransactionRequest(text=combined)).is_transaction
+            )
+        if tx_flag and not was_tx:
+            logger.info(
+                "Phát hiện đoạn chat có giao dịch: chat=%s session=%s date=%s members=%d",
+                chat_name or chat_id,
+                sid,
+                _session_date(marker_before, marker_after, members),
+                len(member_ids),
+            )
+
         entry: dict[str, Any] = {
             "id": sid,
             "session_id": sid,
@@ -156,7 +183,7 @@ def build_chat_sessions(
             "member_count": len(member_ids),
             "marker_before": (marker_before or {}).get("text", "") if marker_before else "",
             "marker_after": (marker_after or {}).get("text", "") if marker_after else "",
-            "is_transaction": prev.get("is_transaction", False),
+            "is_transaction": tx_flag,
         }
         if prev.get("first_seen_at"):
             entry["first_seen_at"] = prev["first_seen_at"]

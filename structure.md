@@ -35,7 +35,8 @@ Cấu trúc dự án
 │   │   ├── chat/
 │   │   │   └── chat_widget.py      # UI messenger, gửi tin
 │   │   └── reconciliation/
-│   │       └── reconciliation_widget.py  # Date picker, chế độ quét, nút Chạy/Dừng
+│   │       ├── reconciliation_widget.py  # Date picker, chế độ quét, nút Chạy/Dừng
+│   │       └── dialogs.py              # Preview ảnh / JSON / danh sách tin
 │   │
 │   └── logic/                      # Logic nghiệp vụ (không Qt UI)
 │       ├── api_client.py           # HTTP → Backend, prefix log
@@ -43,9 +44,17 @@ Cấu trúc dự án
 │       └── reconciliation/
 │           ├── orchestrator.py     # Điều phối loop-1 / loop-2 toàn phiên
 │           ├── screenshot.py       # Chụp full màn / vùng chat
-│           ├── mouse_control.py    # Click sidebar, cuộn, đưa chuột vào hội thoại
+│           ├── mouse_control.py    # Click sidebar, cuộn, focus giữa hội thoại
 │           ├── window_checker.py   # Tìm cửa sổ Zalo / Messenger (Win32)
-│           └── date_filter.py      # Chuẩn hóa & so sánh ngày YYYY-MM-DD
+│           ├── bbox.py               # Bbox normalized ↔ pixel ↔ màn hình
+│           ├── planner.py            # Rule planner fallback
+│           ├── models.py             # ReconciliationState, FsmState, AgentAction
+│           ├── message_store.py        # Catalog tin → messages.json
+│           ├── chat_sessions.py      # Gom bubble → chat_session
+│           ├── csv_export.py           # transactions.csv + transactions.json
+│           ├── transaction_extract.py  # Tin tổng hợp / ảnh CK → TransactionRecord
+│           ├── paths.py                # exports/reconciliation/sessions/
+│           └── date_filter.py        # Chuẩn hóa & so sánh ngày YYYY-MM-DD
 │
 ├── backend/                        # ─── Backend API ───
 │   ├── main.py                     # FastAPI app, CORS, lifespan (plan worker)
@@ -133,6 +142,6 @@ BE
 -> plan worker nền (`segment-queue`) — Ollama tách giao dịch không chặn loop OCR
 -> api `/reconciliation/perceive` — tương thích cũ (YOLO + OCR full)
 
-## Tương thích cũ
-- `app/reconciliation/*` re-export sang `app/logic/reconciliation/*` và `app/ui/reconciliation/*`
-- `PROJECT_STRUCTURE.md` — deprecated, dùng file này
+## Ghi chú
+- Client đối soát: `app/logic/reconciliation/*` (nghiệp vụ) + `app/ui/reconciliation/*` (giao diện).
+- `PROJECT_STRUCTURE.md` — bản tóm tắt; chi tiết cây thư mục dùng file này.

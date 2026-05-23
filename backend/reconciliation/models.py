@@ -105,6 +105,7 @@ class OcrPixelResponse(BaseModel):
 # --- Giao dịch ---
 class TransactionResult(BaseModel):
     is_transaction: bool = False
+    date: str = ""
     time: str = ""
     sender: str = ""
     amount: str = ""
@@ -185,6 +186,7 @@ class ChatSegmentInfo(BaseModel):
     marker_before: str = ""
     marker_after: str = ""
     member_count: int = 0
+    is_transaction: bool = False
 
 
 class LlmTransactionItem(BaseModel):

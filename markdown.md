@@ -3,7 +3,7 @@
 > **Spec đối soát chat** — đồng bộ với `PROJECT_STRUCTURE.md`, `yolo.json`.  
 > **Chiến lược:** Nâng cấp (UPDATE) trên codebase hiện có, không làm mới toàn bộ repo.  
 > **Cập nhật:** 2026-05-20  
-> **Module Accounting đã gỡ:** chỉ còn **reconciliation** — API `/reconciliation/*`, client `app/reconciliation/`. Đường dẫn file/API trong spec đã chỉnh sang reconciliation.
+> **Module Accounting đã gỡ:** chỉ còn **reconciliation** — API `/reconciliation/*`, client `app/logic/reconciliation/` + `app/ui/reconciliation/`.
 
 ---
 
@@ -25,7 +25,7 @@ AI agent tự động trên Windows:
 
 | Ưu tiên | App | Ghi chú |
 |---------|-----|---------|
-| P0 | Zalo PC | Đã có `capture.py` |
+| P0 | Zalo PC | `app/logic/reconciliation/screenshot.py` |
 | P1 | Zalo Web / Messenger (Chrome) | Target `chrome` |
 | P2 | Messenger Desktop, Telegram Desktop | Mở rộng `CAPTURE_TARGETS` + model YOLO |
 | P3 | CRM chat, browser chat khác | Theo nhu cầu |
@@ -37,7 +37,7 @@ AI agent tự động trên Windows:
 ```text
 ┌─────────────────────────────────────────────────────────────┐
 │                        WIN APP                              │
-│  capture.py │ automation.py │ logic.py (FSM + executor)    │
+│  screenshot.py │ mouse_control.py │ orchestrator.py (FSM)   │
 └────────────────────────────┬────────────────────────────────┘
                              │ POST screenshot / GET plan
                              ▼
@@ -81,14 +81,14 @@ AI agent tự động trên Windows:
 
 | Thành phần | Trạng thái | File / ghi chú |
 |------------|------------|----------------|
-| Chụp Zalo PC / Chrome | ✅ Done | `app/reconciliation/capture.py` |
-| Scroll / click | ✅ Done | `app/reconciliation/automation.py` (pynput) |
-| INNER / OUTER loop | ✅ Khung | `app/reconciliation/logic.py` |
-| OCR EasyOCR + sidebar 19% | ✅ Done | `backend/reconciliation/ocr_*` |
+| Chụp Zalo PC / Chrome | ✅ Done | `app/logic/reconciliation/screenshot.py` |
+| Scroll / click | ✅ Done | `app/logic/reconciliation/mouse_control.py` (pynput) |
+| INNER / OUTER loop | ✅ Done | `app/logic/reconciliation/orchestrator.py` |
+| OCR EasyOCR + layout cache | ✅ Done | `backend/reconciliation/ocr_*`, `vision/yolo_layout.py` |
 | Detect giao dịch keyword/regex | ✅ Done | `transaction_detector.py` |
-| CSV text | ✅ Done | `app/reconciliation/csv_export.py` |
-| YOLO UI detection | ⏳ Planned | `backend/reconciliation/vision/` (chưa có) |
-| Layout từ YOLO bbox | ⏳ Planned | Thay hardcode `_SIDEBAR_RATIO` |
+| CSV text | ✅ Done | `app/logic/reconciliation/csv_export.py` |
+| YOLO / CV layout | ✅ Done | `backend/reconciliation/vision/yolo_layout.py` |
+| Layout từ ảnh (cache) | ✅ Done | `layout_regions.py` + `layout_cache.py` |
 | `transaction_image` + lưu ảnh CK | ⏳ Planned | Nguồn B — §10.6 |
 | Tin tổng hợp `summary_text` | ⏳ Planned | Nguồn A — §10.3, parse nhiều dòng / bubble |
 | Schema `TransactionRecord` §10.4 | ⏳ Planned | CSV/JSON đầy đủ trường, dedupe A↔B |
@@ -757,12 +757,12 @@ def run_full_session(stop_date: str, max_chats: int):
 |------------|-----------|---------|
 | Win App | Python + PySide6 | `app/` |
 | Backend | FastAPI | `backend/` |
-| UI detection | YOLOv8/v11 | Planned |
+| UI detection | YOLOv8/v11 + CV fallback | `backend/reconciliation/vision/yolo_layout.py` |
 | OCR chat | EasyOCR | Đang dùng |
 | OCR bill | PaddleOCR | Planned |
 | LLM local | Ollama `gemma4:e2b` | Chat + plan + analyze |
-| Automation | pynput | `automation.py` |
-| Capture | dxcam + PrintWindow | `capture.py` |
+| Automation | pynput | `app/logic/reconciliation/mouse_control.py` |
+| Capture | dxcam + PrintWindow | `app/logic/reconciliation/screenshot.py` |
 | Cache | RAM → Redis | Tùy scale |
 | Export | CSV + JSON + files | `exports/` |
 
@@ -805,9 +805,10 @@ Analyze (tổng hợp JSON) → báo cáo / CSV / JSON
 | `markdown.md` | Spec này |
 | `yolo.json` | Mẫu Perception JSON (normalized bbox) |
 | `PROJECT_STRUCTURE.md` | Cây thư mục + API đã triển khai |
-| `app/reconciliation/logic.py` | INNER/OUTER loop |
-| `app/reconciliation/capture.py` | Chụp cửa sổ |
-| `app/reconciliation/automation.py` | Scroll, click |
+| `app/logic/reconciliation/orchestrator.py` | INNER/OUTER loop |
+| `app/logic/reconciliation/screenshot.py` | Chụp cửa sổ / vùng chat |
+| `app/logic/reconciliation/mouse_control.py` | Scroll, click, focus |
+| `app/ui/reconciliation/reconciliation_widget.py` | Tab Đối soát (PySide6) |
 | `backend/reconciliation/ocr_service.py` | Pipeline OCR |
 | `backend/reconciliation/models.py` | Pydantic schemas |
 

@@ -199,6 +199,8 @@ def _infer_layout_cv(img: Image.Image) -> LayoutRatios:
         sidebar_r = 0.20
 
     right_r = 0.0
+    # Biên trái panel phụ thường nằm 65–92% chiều rộng
+    right_scan_start = int(w * 0.65)
     if right_scan_start < w - 2:
         right_slice = col_grad[right_scan_start:]
         if right_slice.size > 2:

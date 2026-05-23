@@ -122,6 +122,12 @@ async def enqueue_segment(
     """Thêm đoạn chat vào RAM; worker xử lý lần lượt nếu đang active."""
     if not (segment.text or "").strip():
         return {"accepted": False, "reason": "empty_text"}
+    if not segment.is_transaction:
+        logger.info(
+            "Bỏ qua enqueue — đoạn không đánh dấu GD: %s",
+            segment.id or "?",
+        )
+        return {"accepted": False, "reason": "not_transaction_segment", "segment_id": segment.id}
 
     state = await _get_queue(session_id)
     seg_id = segment.id or ""
@@ -189,23 +195,29 @@ async def _worker_loop(session_id: str) -> None:
 
     try:
         while True:
-            async with _global_lock:
-                if not state.active:
-                    break
-
             try:
                 item = await asyncio.wait_for(state.queue.get(), timeout=1.5)
             except asyncio.TimeoutError:
                 async with _global_lock:
-                    if not state.active and state.queue.empty():
+                    if state.queue.empty() and not state.active:
                         break
                 continue
 
             seg_id = item.segment.id or "?"
+            if not item.segment.is_transaction:
+                logger.info("Worker bỏ qua đoạn không GD: %s", seg_id)
+                state.queue.task_done()
+                continue
             async with _global_lock:
                 state.processing_id = seg_id
                 state.last_error = None
 
+            logger.info(
+                "AI đọc đoạn chat có GD: %s (%s, %d ký tự)",
+                seg_id,
+                item.segment.date or "—",
+                len((item.segment.text or "").strip()),
+            )
             try:
                 req = SplitTransactionsRequest(
                     session_id=session_id,

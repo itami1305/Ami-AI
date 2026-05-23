@@ -1,0 +1,648 @@
+{
+  "info": {
+    "name": "SO9 API Collection",
+    "description": "Comprehensive API collection for the SO9 platform. Base URL: https://openapi.so9.vn/api/v1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://open-api.so9.vn/api/v1",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "refresh_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "OAUTH",
+      "item": [
+        {
+          "name": "Get Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"app_id\": \"your_app_id\",\n  \"app_secret\": \"your_app_secret\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/oauth",
+              "host": ["{{base_url}}"],
+              "path": ["oauth"]
+            },
+            "description": "Obtain an access token and refresh token for API authentication."
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/oauth/refresh",
+              "host": ["{{base_url}}"],
+              "path": ["oauth", "refresh"]
+            },
+            "description": "Refresh an access token using a refresh token."
+          }
+        }
+      ]
+    },
+    {
+      "name": "CHANNEL",
+      "item": [
+        {
+          "name": "List Channels",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/channels/list",
+              "host": ["{{base_url}}"],
+              "path": ["channels", "list"]
+            },
+            "description": "Retrieve a paginated list of channels."
+          }
+        },
+        {
+          "name": "Get Board Pinterest",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"channel_id\": \"your_channel_id\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/boards/find-all",
+              "host": ["{{base_url}}"],
+              "path": ["boards", "find-all"]
+            },
+            "description": "Retrieve Pinterest boards for a channel."
+          }
+        }
+      ]
+    },
+    {
+      "name": "GROUP CHANNEL",
+      "item": [
+        {
+          "name": "List Group Channels",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/group-channels/list",
+              "host": ["{{base_url}}"],
+              "path": ["group-channels", "list"]
+            },
+            "description": "Retrieve a paginated list of group channels."
+          }
+        },
+        {
+          "name": "Get Group Channel Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/group-channels/:id/detail",
+              "host": ["{{base_url}}"],
+              "path": ["group-channels", ":id", "detail"],
+              "variable": [
+                { "key": "id", "value": "group_channel_id" }
+              ]
+            },
+            "description": "Retrieve detail of a group channel."
+          }
+        }
+      ]
+    },
+    {
+      "name": "PUBLISHING",
+      "item": [
+        {
+          "name": "Create Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"channel_ids\": [\"channel_id_here\"],\n  \"group_channel_ids\": [],\n  \"content\": \"Your post content here\",\n  \"id_thirdparty\": \"unique_id\",\n  \"share_post_to_story\": false,\n  \"media\": {\n    \"type\": 1,\n    \"image\": [\n      {\n        \"url\": \"https://example.com/image.jpg\",\n        \"alt\": \"\",\n        \"caption\": \"\"\n      }\n    ]\n  },\n  \"facebook_setting\": {\n    \"type\": \"feed\",\n    \"text_format_preset_id\": \"\"\n  },\n  \"instagram_setting\": {\n    \"type\": \"feed\"\n  },\n  \"youtube_setting\": {\n    \"type\": \"video\",\n    \"title\": \"\",\n    \"category\": \"\"\n  },\n  \"tiktok_setting\": {\n    \"thumbnail_offset\": 0\n  },\n  \"zalo_setting\": {\n    \"title\": \"\",\n    \"description\": \"\"\n  },\n  \"threads_setting\": {\n    \"set_multi_posts\": false,\n    \"multi_posts\": []\n  },\n  \"pinterest_setting\": {\n    \"title\": \"\",\n    \"boards\": []\n  },\n  \"scheduled_at\": null,\n  \"is_auto_scheduled_at\": false,\n  \"comment_seedings\": {\n    \"channel_ids\": [],\n    \"comments\": []\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/posts/store",
+              "host": ["{{base_url}}"],
+              "path": ["posts", "store"]
+            },
+            "description": "Create a post on one or more channels."
+          }
+        },
+        {
+          "name": "Get Link Share",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"post_ids\": [\"post_id_here\"]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/posts/link-share",
+              "host": ["{{base_url}}"],
+              "path": ["posts", "link-share"]
+            },
+            "description": "Generate a shareable link for one or more posts."
+          }
+        },
+        {
+          "name": "Get Status Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"post_id\": \"post_id_here\",\n  \"channel_id\": \"channel_id_here\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/posts/status",
+              "host": ["{{base_url}}"],
+              "path": ["posts", "status"]
+            },
+            "description": "Retrieve the status of a post for a specific channel. Status codes: 1=Pending, 2=Success, 3=Publishing, 4=Hidden, 5=Deleted, 6/7=Checking media readiness."
+          }
+        },
+        {
+          "name": "Get List Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"platform\": 1,\n  \"channel_ids\": [\"channel_id_here\"],\n  \"scheduled_start\": 0,\n  \"scheduled_end\": 0,\n  \"status\": [2]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/posts/list",
+              "host": ["{{base_url}}"],
+              "path": ["posts", "list"]
+            },
+            "description": "Retrieve list of posts. Platform: 1=Facebook, 2=TikTok, 4=Zalo OA, 5=YouTube, 6=Instagram, 8=Pinterest, 10=Threads."
+          }
+        }
+      ]
+    },
+    {
+      "name": "COMMENT",
+      "item": [
+        {
+          "name": "Store Comment",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"post_id\": \"post_id_here\",\n  \"platform\": 1,\n  \"channel_ids\": [\"channel_id_here\"],\n  \"comments\": [\n    {\n      \"message\": \"Your comment message\",\n      \"image_url\": \"\",\n      \"extra_time\": 1\n    }\n  ]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/comments/store",
+              "host": ["{{base_url}}"],
+              "path": ["comments", "store"]
+            },
+            "description": "Create comments on a post."
+          }
+        }
+      ]
+    },
+    {
+      "name": "CONVERSATION",
+      "item": [
+        {
+          "name": "Get List Conversation",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"project_id\": \"your_project_id\",\n  \"page\": 1,\n  \"filter\": {\n    \"range_time\": {\n      \"from\": \"2024-01-01\",\n      \"to\": \"2026-12-31\"\n    },\n    \"channel\": [],\n    \"group_channel\": [],\n    \"tag\": []\n  },\n  \"search\": \"\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/conversations/list",
+              "host": ["{{base_url}}"],
+              "path": ["conversations", "list"]
+            },
+            "description": "Get list of conversations. Types: 1=FB Comment, 2=FB Chat, 3=Zalo Chat, 4=TikTok Comment, 5=Instagram Comment, 6=Threads Comment."
+          }
+        },
+        {
+          "name": "Get Chat In Conversation",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/conversation/:conversation_id/lis-chat?project_id=your_project_id&page=1",
+              "host": ["{{base_url}}"],
+              "path": ["conversation", ":conversation_id", "lis-chat"],
+              "query": [
+                { "key": "project_id", "value": "your_project_id" },
+                { "key": "page", "value": "1" }
+              ],
+              "variable": [
+                { "key": "conversation_id", "value": "conversation_id_here" }
+              ]
+            },
+            "description": "List chats in a conversation."
+          }
+        },
+        {
+          "name": "Get Comment In Conversation",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/conversation/:conversation_id/lis-comment?project_id=your_project_id&page=1",
+              "host": ["{{base_url}}"],
+              "path": ["conversation", ":conversation_id", "lis-comment"],
+              "query": [
+                { "key": "project_id", "value": "your_project_id" },
+                { "key": "page", "value": "1" }
+              ],
+              "variable": [
+                { "key": "conversation_id", "value": "conversation_id_here" }
+              ]
+            },
+            "description": "List comments in a conversation."
+          }
+        }
+      ]
+    },
+    {
+      "name": "DASHBOARD",
+      "item": [
+        {
+          "name": "Get Dashboard Single Channel",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"project_id\": \"your_project_id\",\n  \"channel_id\": \"your_channel_id\",\n  \"start_date\": \"2025-01-01\",\n  \"end_date\": \"2025-12-31\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/dashboards/channel",
+              "host": ["{{base_url}}"],
+              "path": ["dashboards", "channel"]
+            },
+            "description": "Retrieve analytics for a single channel."
+          }
+        },
+        {
+          "name": "Get Dashboard Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"project_id\": \"your_project_id\",\n  \"post_id\": \"your_post_id\",\n  \"platform\": 1\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/dashboards/post",
+              "host": ["{{base_url}}"],
+              "path": ["dashboards", "post"]
+            },
+            "description": "Retrieve analytics for a specific post. Analytics only available if post status is 2 (Success)."
+          }
+        },
+        {
+          "name": "Get Employee Posting Dashboard",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from_timestamp\": 1700000000,\n  \"to_timestamp\": 1779357543,\n  \"page\": 1,\n  \"channel_ids\": [],\n  \"user_ids\": []\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/dashboards/channels/:platform/metrics",
+              "host": ["{{base_url}}"],
+              "path": ["dashboards", "channels", ":platform", "metrics"],
+              "variable": [
+                { "key": "platform", "value": "facebook", "description": "facebook | tiktok | youtube | instagram" }
+              ]
+            },
+            "description": "Retrieve employee posting performance dashboard. Platform param: facebook, tiktok, youtube, instagram."
+          }
+        },
+        {
+          "name": "Get Zalo Call Dashboard",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from_timestamp\": 1700000000,\n  \"to_timestamp\": 1779357543,\n  \"page\": 1,\n  \"channel_ids\": []\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/conversations/zalo-call/statistics-by-channel",
+              "host": ["{{base_url}}"],
+              "path": ["conversations", "zalo-call", "statistics-by-channel"]
+            },
+            "description": "Retrieve Zalo call dashboard statistics by channel."
+          }
+        },
+        {
+          "name": "Channel Message Interaction Dashboard",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from_timestamp\": 1700000000,\n  \"to_timestamp\": 1779357543,\n  \"page\": 1,\n  \"channel_ids\": []\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/conversations/channels/interactions",
+              "host": ["{{base_url}}"],
+              "path": ["conversations", "channels", "interactions"]
+            },
+            "description": "Retrieve message interaction statistics by channel for dashboard reporting."
+          }
+        },
+        {
+          "name": "Employee Message Interaction Dashboard",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from_timestamp\": 1700000000,\n  \"to_timestamp\": 1779357543,\n  \"page\": 1,\n  \"channel_ids\": [],\n  \"user_ids\": []\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/conversations/employees/interactions",
+              "host": ["{{base_url}}"],
+              "path": ["conversations", "employees", "interactions"]
+            },
+            "description": "Retrieve message interaction statistics by employee for dashboard reporting."
+          }
+        }
+      ]
+    },
+    {
+      "name": "CRM LEAD",
+      "item": [
+        {
+          "name": "List Lead",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"page\": 1,\n  \"limit\": 10,\n  \"user_id\": null,\n  \"filter\": {\n    \"match_all\": [\n      {\n        \"field\": \"is_open\",\n        \"operator\": \"eq\",\n        \"value\": true,\n        \"data_type\": \"boolean\"\n      }\n    ],\n    \"match_any\": []\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/crm/leads/list",
+              "host": ["{{base_url}}"],
+              "path": ["crm", "leads", "list"]
+            },
+            "description": "Retrieve a paginated list of CRM leads for the current project."
+          }
+        },
+        {
+          "name": "Create Lead",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"organization_id\": \"\",\n  \"person_id\": \"\",\n  \"title\": \"Lead title\",\n  \"assigned_to\": null,\n  \"subscribers\": [],\n  \"label\": [],\n  \"pipeline\": {\n    \"lead_stage_id\": \"\",\n    \"value\": \"new\",\n    \"label\": \"New\",\n    \"color\": \"#1677ff\",\n    \"position\": 1,\n    \"is_active\": true,\n    \"actived_at\": 0\n  },\n  \"source_origin\": {\n    \"label\": \"\",\n    \"value\": \"\",\n    \"color\": \"\"\n  },\n  \"source_origin_id\": \"\",\n  \"source_channel\": {\n    \"label\": \"\",\n    \"value\": \"\",\n    \"color\": \"\"\n  },\n  \"source_channel_id\": \"\",\n  \"utm_campaign\": \"\",\n  \"utm_source\": \"\",\n  \"utm_medium\": \"\",\n  \"utm_content\": \"\",\n  \"product_quantity\": 1,\n  \"product_amount\": 0,\n  \"next_activity_type\": \"\",\n  \"next_activity_date\": \"\",\n  \"last_activity_date\": \"\",\n  \"last_activity_type\": \"\",\n  \"done_activity\": 0,\n  \"activity_to_do\": 0,\n  \"custom_fields\": []\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/crm/leads/create",
+              "host": ["{{base_url}}"],
+              "path": ["crm", "leads", "create"]
+            },
+            "description": "Create a new lead in the CRM system."
+          }
+        },
+        {
+          "name": "Edit Lead",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated lead title\",\n  \"assigned_to\": null,\n  \"label\": [],\n  \"pipeline\": {\n    \"lead_stage_id\": \"\",\n    \"value\": \"\",\n    \"label\": \"\",\n    \"color\": \"\",\n    \"position\": 1,\n    \"is_active\": true,\n    \"actived_at\": 0\n  },\n  \"source_origin\": {},\n  \"source_channel\": {},\n  \"utm_campaign\": \"\",\n  \"utm_source\": \"\",\n  \"utm_medium\": \"\",\n  \"utm_content\": \"\",\n  \"product_quantity\": 1,\n  \"product_amount\": 0,\n  \"next_activity_type\": \"\",\n  \"next_activity_date\": \"\",\n  \"last_activity_date\": \"\",\n  \"last_activity_type\": \"\",\n  \"done_activity\": 0,\n  \"activity_to_do\": 0,\n  \"custom_fields\": []\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/crm/leads/:id/edit",
+              "host": ["{{base_url}}"],
+              "path": ["crm", "leads", ":id", "edit"],
+              "variable": [
+                { "key": "id", "value": "lead_id_here" }
+              ]
+            },
+            "description": "Update an existing lead in the CRM system."
+          }
+        },
+        {
+          "name": "Delete Lead",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/crm/leads/:id/remove",
+              "host": ["{{base_url}}"],
+              "path": ["crm", "leads", ":id", "remove"],
+              "variable": [
+                { "key": "id", "value": "lead_id_here" }
+              ]
+            },
+            "description": "Delete an existing lead from the CRM system."
+          }
+        }
+      ]
+    },
+    {
+      "name": "CRM PERSON",
+      "item": [
+        {
+          "name": "List Person",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"page\": 1,\n  \"limit\": 10,\n  \"user_id\": null,\n  \"search\": \"\",\n  \"filter\": {\n    \"match_all\": [],\n    \"match_any\": []\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/crm/persons/list",
+              "host": ["{{base_url}}"],
+              "path": ["crm", "persons", "list"]
+            },
+            "description": "Retrieve a paginated list of CRM persons for the current project. Supports pagination, keyword search, and advanced filtering."
+          }
+        },
+        {
+          "name": "Create Person",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": null,\n  \"name\": \"Person Name\",\n  \"phone\": [\"0900000000\"],\n  \"email\": [],\n  \"zalo\": \"\",\n  \"facebook_link\": [],\n  \"subscribers\": [],\n  \"organization_id\": [],\n  \"label\": [],\n  \"source_origin\": {\n    \"label\": \"\",\n    \"value\": \"\",\n    \"color\": \"\"\n  },\n  \"source_origin_id\": \"\",\n  \"source_channel\": {\n    \"label\": \"\",\n    \"value\": \"\",\n    \"color\": \"\"\n  },\n  \"source_channel_id\": \"\",\n  \"utm_campaign\": \"\",\n  \"utm_medium\": \"\",\n  \"utm_content\": \"\",\n  \"utm_source\": \"\",\n  \"custom_fields\": {},\n  \"lead_note\": \"\",\n  \"is_system_generate\": false,\n  \"is_auto_create_lead_by_person\": false,\n  \"is_check_lead_exist_and_add_note\": false,\n  \"is_assigned\": true\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/crm/persons/create",
+              "host": ["{{base_url}}"],
+              "path": ["crm", "persons", "create"]
+            },
+            "description": "Create a new person in the CRM system."
+          }
+        },
+        {
+          "name": "Edit Person",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Name\",\n  \"phone\": [],\n  \"email\": [],\n  \"zalo\": \"\",\n  \"facebook_link\": [],\n  \"subscribers\": [],\n  \"organization_id\": [],\n  \"label\": [],\n  \"custom_fields\": {}\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/crm/persons/:id/edit",
+              "host": ["{{base_url}}"],
+              "path": ["crm", "persons", ":id", "edit"],
+              "variable": [
+                { "key": "id", "value": "person_id_here" }
+              ]
+            },
+            "description": "Update an existing person in the CRM system."
+          }
+        },
+        {
+          "name": "Delete Person",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{access_token}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/crm/persons/:id/remove",
+              "host": ["{{base_url}}"],
+              "path": ["crm", "persons", ":id", "remove"],
+              "variable": [
+                { "key": "id", "value": "person_id_here" }
+              ]
+            },
+            "description": "Delete an existing person from the CRM system."
+          }
+        }
+      ]
+    }
+  ]
+}

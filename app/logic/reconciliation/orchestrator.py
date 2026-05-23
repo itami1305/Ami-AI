@@ -10,12 +10,20 @@ Luồng:
 
 from __future__ import annotations
 
+import json
 import uuid
 from typing import Callable
 
-from app.logic.api_client import ApiError, delete, post_json, post_multipart
+import time
+
+from app.logic.api_client import ApiError, delete, get_json, post_json, post_multipart
 from app.logic.reconciliation.bbox import bbox_center_screen, bbox_to_pixels, item_to_bbox
-from app.logic.reconciliation.csv_export import append_transaction_record, init_csv_file, init_json_file
+from app.logic.reconciliation.csv_export import (
+    _existing_transaction_codes,
+    append_transaction_record,
+    init_csv_file,
+    init_json_file,
+)
 from app.logic.reconciliation.date_filter import message_reached_stop_threshold
 from app.logic.reconciliation.message_store import (
     catalog_to_list,
@@ -38,8 +46,14 @@ from app.logic.reconciliation.transaction_extract import (
     is_summary_message,
     new_tx_id,
     records_from_detect,
+    records_from_transaction_results,
     records_from_parse_summary,
     records_from_split_response,
+)
+from backend.reconciliation.transfer_receipt import (
+    is_multi_transaction_segment,
+    is_transfer_receipt_text,
+    parse_transfer_receipts,
 )
 
 PLAN_CONFIDENCE_THRESHOLD = 0.75
@@ -239,6 +253,39 @@ class ReconciliationOrchestrator:
         except ApiError:
             pass
 
+    def _get_plan_worker_status(self) -> dict:
+        try:
+            return get_json(f"/reconciliation/segment-queue/status/{self.state.session_id}")
+        except ApiError:
+            return {}
+
+    def _wait_for_plan_worker_completion(
+        self,
+        *,
+        poll_sec: float = 2.0,
+        max_wait_sec: float = 900.0,
+    ) -> None:
+        """Chờ worker AI xử lý hết hàng đợi đoạn chat (giữ active, drain kết quả)."""
+        deadline = time.monotonic() + max_wait_sec
+        idle_rounds = 0
+        while time.monotonic() < deadline:
+            st = self._get_plan_worker_status()
+            pending = int(st.get("pending") or 0)
+            processing = st.get("processing_id")
+            finished_n = int(st.get("finished_pending") or 0)
+
+            self._drain_plan_worker()
+
+            if pending == 0 and not processing:
+                idle_rounds += 1
+                if finished_n == 0 and idle_rounds >= 2:
+                    return
+            else:
+                idle_rounds = 0
+            time.sleep(poll_sec)
+
+        self.log("Hết thời gian chờ AI — có thể còn đoạn trong hàng đợi.")
+
     def post_plan(self, snapshot: dict) -> AgentAction:
         payload = {
             "session_id": self.state.session_id,
@@ -349,6 +396,11 @@ class ReconciliationOrchestrator:
         if json_path is None or csv_path is None:
             return
         for record in records:
+            code = (record.transaction_code or "").strip()
+            if code and code in self.state.transaction_codes:
+                self.log(f"Bỏ qua GD trùng mã giao dịch: {code}")
+                continue
+
             seq = self.state.transaction_count + 1
             record.id = new_tx_id(self.state.session_id, seq)
             if record.dedupe_key and record.dedupe_key in self.state.dedupe_keys:
@@ -357,10 +409,14 @@ class ReconciliationOrchestrator:
                 if existing:
                     record.linked_record_ids.append(existing.id)
                     existing.linked_record_ids.append(record.id)
-            elif record.dedupe_key:
-                self.state.dedupe_keys.add(record.dedupe_key)
 
-            append_transaction_record(csv_path, json_path, record)
+            if not append_transaction_record(csv_path, json_path, record):
+                self.log(f"Bỏ qua GD trùng mã giao dịch (JSON): {code}")
+                continue
+            if record.dedupe_key and not record.is_duplicate:
+                self.state.dedupe_keys.add(record.dedupe_key)
+            if code:
+                self.state.transaction_codes.add(code)
             self.state.records_by_id[record.id] = record
             mark_transaction_messages(self.state.messages_catalog, [record.message_id])
             self.state.transaction_count += 1
@@ -390,13 +446,83 @@ class ReconciliationOrchestrator:
             sender = role or self.state.current_chat_name or ""
 
         if msg_type == "chat_session":
+            if not msg.get("is_transaction"):
+                return []
+            records: list[TransactionRecord] = []
+            if is_multi_transaction_segment(text):
+                parsed = parse_transfer_receipts(
+                    text, sender=sender, time=msg_time or msg_date
+                )
+                records = records_from_transaction_results(
+                    parsed,
+                    sender=sender,
+                    msg_date=msg_date,
+                    msg_time=msg_time,
+                    state=self.state,
+                    message_id=msg_id,
+                    source_type="bank_sms_lines",
+                    raw_text=text,
+                )
+            elif is_transfer_receipt_text(text):
+                records = records_from_detect(
+                    self.detect_transaction,
+                    text=text,
+                    sender=sender,
+                    msg_date=msg_date,
+                    msg_time=msg_time,
+                    state=self.state,
+                    message_id=msg_id,
+                    source_type="transfer_receipt_ocr",
+                )
+            elif is_summary_message(text):
+                records = records_from_parse_summary(
+                    lambda t, **kw: self.parse_summary(t, **kw),
+                    text=text,
+                    sender=sender,
+                    msg_date=msg_date,
+                    msg_time=msg_time,
+                    state=self.state,
+                    message_id=msg_id,
+                )
+            else:
+                records = records_from_detect(
+                    self.detect_transaction,
+                    text=text,
+                    sender=sender,
+                    msg_date=msg_date,
+                    msg_time=msg_time,
+                    state=self.state,
+                    message_id=msg_id,
+                    source_type="llm_chat_segment",
+                )
+
+            if records:
+                return records
+
+            self.log(
+                f"Enqueue AI tách GD — đoạn {msg_id} "
+                f"({msg_date or msg_time or '—'}, {len(text)} ký tự)"
+            )
             try:
                 post_json(
                     "/reconciliation/segment-queue/enqueue",
                     {
                         "session_id": self.state.session_id,
                         "app_type": self.state.app_type,
-                        "segment": msg,
+                        "segment": {
+                            "id": msg_id,
+                            "text": text,
+                            "date": msg_date,
+                            "time": msg_time,
+                            "sender": sender,
+                            "role": role,
+                            "chat_id": self.state.current_chat_id,
+                            "chat_name": self.state.current_chat_name,
+                            "marker_before": msg.get("marker_before") or "",
+                            "marker_after": msg.get("marker_after") or "",
+                            "member_count": int(msg.get("member_count") or 0),
+                            "is_transaction": True,
+                        },
                     },
                 )
             except ApiError as exc:
@@ -516,7 +642,19 @@ class ReconciliationOrchestrator:
                 continue
             self.state.processed_messages.add(sess_id)
             round_new += 1
-            self._extract_records_from_message(entry)
+            if not entry.get("is_transaction"):
+                self.log(
+                    f"Bỏ qua đoạn chat (không GD): {sess_id} "
+                    f"— {entry.get('date') or '—'}"
+                )
+                continue
+            self.log(
+                f"Xử lý đoạn chat có GD: {sess_id} "
+                f"— {entry.get('date') or '—'} ({entry.get('member_count', 0)} tin)"
+            )
+            records = self._extract_records_from_message(entry)
+            if records:
+                self._save_records(records)
 
             msg_date = entry.get("date") or ""
             if msg_date and self.state.stop_date:
@@ -616,12 +754,14 @@ class ReconciliationOrchestrator:
 
             self._set_fsm(FsmState.ACT)
             if action.action not in ("stop_inner", "stop_outer"):
-                focus_chat_center(
+                fx, fy = focus_chat_center(
                     snapshot,
                     self.state.capture_offset_x,
                     self.state.capture_offset_y,
                     self.state.capture_width,
                     self.state.capture_height,
+                    capture_target=self.state.capture_target,
+                    yolo_layout=self.state.yolo_layout,
                 )
                 self.state.next_chat_y = execute_action(
                     action,
@@ -634,7 +774,7 @@ class ReconciliationOrchestrator:
                     next_chat_y=self.state.next_chat_y,
                 )
                 if action.action == "scroll":
-                    self.log("Đã focus khung chat và cuộn.")
+                    self.log(f"Đã focus khung chat ({fx}, {fy}) và cuộn.")
 
         self.log("Kết thúc loop-2.")
 
@@ -709,12 +849,14 @@ class ReconciliationOrchestrator:
 
     def _prepare_session(self, stop_date: str, *, segment: bool) -> None:
         self.state.running = True
+        self.state.stop_requested = False
         self.state.segment_mode = segment
         self.state.stop_date = stop_date
         self.state.transaction_count = 0
         self.state.processed_messages.clear()
         self.state.processed_chat_ids.clear()
         self.state.dedupe_keys.clear()
+        self.state.transaction_codes.clear()
         self.state.records_by_id.clear()
         self.state.messages_catalog.clear()
         self.state.bubble_catalog.clear()
@@ -727,13 +869,30 @@ class ReconciliationOrchestrator:
         init_csv_file(self.state.csv_path)
         if self.state.json_path:
             init_json_file(self.state.json_path)
+            if self.state.json_path.exists():
+                data = json.loads(self.state.json_path.read_text(encoding="utf-8"))
+                self.state.transaction_codes = _existing_transaction_codes(data)
 
     def _finalize_session(self, label: str) -> None:
         self.state.running = False
         self._set_fsm(FsmState.DONE)
+        persist_messages(self.state.session_dir, self.state.messages_catalog)
+
+        st = self._get_plan_worker_status()
+        pending = int(st.get("pending") or 0)
+        processing = st.get("processing_id")
+        finished_n = int(st.get("finished_pending") or 0)
+        if pending or processing or finished_n:
+            if self.state.stop_requested:
+                self.log(
+                    "Đã dừng chụp/OCR — giữ kết nối AI, chờ phân tích và lưu các đoạn chat..."
+                )
+            else:
+                self.log("Chờ AI hoàn tất phân tích các đoạn chat đã enqueue...")
+            self._wait_for_plan_worker_completion()
+
         self._drain_plan_worker()
         self._deactivate_plan_worker()
-        persist_messages(self.state.session_dir, self.state.messages_catalog)
 
         if self.state.transaction_count > 0:
             try:
@@ -756,6 +915,7 @@ class ReconciliationOrchestrator:
             self.log(f"{label}: không có giao dịch → {path}")
 
     def run_full(self, stop_date: str, max_chats: int = 3) -> None:
+        """Khởi chạy chế độ đối soát toàn bộ."""
         self._prepare_session(stop_date, segment=False)
         self.log(
             f"Bắt đầu đối soát. stop_date={stop_date or '(không)'} — "
@@ -769,6 +929,7 @@ class ReconciliationOrchestrator:
             self._finalize_session("Hoàn tất")
 
     def run_chat_segment(self, stop_date: str) -> None:
+        """Khởi chạy chế độ quét đoạn."""
         self._prepare_session(stop_date, segment=True)
         self.state.current_chat_id = ""
         self.state.current_chat_name = ""
@@ -786,7 +947,8 @@ class ReconciliationOrchestrator:
 
     def stop(self) -> None:
         self.state.running = False
-        self.log("Đang dừng...")
+        self.state.stop_requested = True
+        self.log("Đang dừng chụp/OCR — vẫn chờ AI phân tích các đoạn chat trong hàng đợi...")
 
 
 ReconciliationLogic = ReconciliationOrchestrator

@@ -71,6 +71,8 @@ def build_record(
     sender: str = "",
     bank: str = "",
     transaction_code: str = "",
+    account_number: str = "",
+    beneficiary: str = "",
     content: str = "",
     raw_text: str = "",
     transfer_image_path: str | None = None,
@@ -95,6 +97,8 @@ def build_record(
         amount=amount,
         bank=bank,
         transaction_code=transaction_code,
+        account_number=account_number,
+        beneficiary=beneficiary,
         content=content,
         raw_text=raw_text,
         transfer_image_path=transfer_image_path,
@@ -103,6 +107,58 @@ def build_record(
         dedupe_key=dedupe,
         created_at=now,
     )
+
+
+def records_from_transaction_results(
+    results: list,
+    *,
+    sender: str,
+    msg_date: str,
+    msg_time: str,
+    state,
+    message_id: str,
+    source_type: SourceType,
+    raw_text: str = "",
+    summary_excerpt: str | None = None,
+) -> list[TransactionRecord]:
+    """Map danh sách TransactionResult → TransactionRecord (nhiều GD / đoạn chat)."""
+    records: list[TransactionRecord] = []
+    for idx, det in enumerate(results):
+        if hasattr(det, "model_dump"):
+            tx = det.model_dump()
+        elif isinstance(det, dict):
+            tx = det
+        else:
+            continue
+        if not tx.get("is_transaction"):
+            continue
+        seq = state.transaction_count + len(records) + 1
+        records.append(
+            build_record(
+                tx_id=new_tx_id(state.session_id, seq),
+                session_id=state.session_id,
+                app_type=state.app_type,
+                chat_id=state.current_chat_id,
+                chat_name=state.current_chat_name,
+                message_id=message_id,
+                source_type=source_type,
+                amount=tx.get("amount", ""),
+                parent_message_id=message_id,
+                line_index=idx,
+                transaction_date=tx.get("date") or msg_date or "",
+                transaction_time=tx.get("time") or msg_time or "",
+                sender=tx.get("sender") or sender,
+                bank=tx.get("bank", ""),
+                transaction_code=tx.get("transaction_code", ""),
+                account_number=tx.get("account_number", ""),
+                beneficiary=tx.get("beneficiary", ""),
+                content=tx.get("content", raw_text),
+                raw_text=raw_text,
+                summary_excerpt=summary_excerpt or (raw_text[:500] if raw_text else None),
+                screenshot_path=state.last_screenshot_path,
+            )
+        )
+    return records
 
 
 def records_from_detect(
@@ -140,11 +196,13 @@ def records_from_detect(
             amount=tx.get("amount", ""),
             parent_message_id=message_id,
             line_index=line_index,
-            transaction_date=msg_date or tx.get("time", ""),
-            transaction_time=msg_time or tx.get("time", ""),
+            transaction_date=tx.get("date") or msg_date or "",
+            transaction_time=tx.get("time") or msg_time or "",
             sender=tx.get("sender") or sender,
             bank=tx.get("bank", ""),
             transaction_code=tx.get("transaction_code", ""),
+            account_number=tx.get("account_number", ""),
+            beneficiary=tx.get("beneficiary", ""),
             content=tx.get("content", text),
             raw_text=text,
             summary_excerpt=summary_excerpt,
@@ -180,6 +238,8 @@ def records_from_split_response(
                 sender=raw.get("sender", ""),
                 bank=raw.get("bank", ""),
                 transaction_code=raw.get("transaction_code", ""),
+                account_number=raw.get("account_number", ""),
+                beneficiary=raw.get("beneficiary", ""),
                 content=raw.get("content", ""),
                 raw_text=raw.get("raw_text", ""),
                 summary_excerpt=raw.get("summary_excerpt"),
@@ -220,6 +280,8 @@ def records_from_llm_split(
                 sender=raw.get("sender") or segment.get("sender", ""),
                 bank=raw.get("bank", ""),
                 transaction_code=raw.get("transaction_code", ""),
+                account_number=raw.get("account_number", ""),
+                beneficiary=raw.get("beneficiary", ""),
                 content=raw.get("content", ""),
                 raw_text=raw.get("raw_text", segment.get("text", "")),
                 summary_excerpt=raw.get("summary_excerpt") or (segment.get("text") or "")[:500],
@@ -268,6 +330,8 @@ def records_from_parse_summary(
                 sender=raw.get("sender") or sender,
                 bank=raw.get("bank", ""),
                 transaction_code=raw.get("transaction_code", ""),
+                account_number=raw.get("account_number", ""),
+                beneficiary=raw.get("beneficiary", ""),
                 content=raw.get("content", ""),
                 raw_text=raw.get("raw_text", text),
                 summary_excerpt=raw.get("summary_excerpt") or text[:500],

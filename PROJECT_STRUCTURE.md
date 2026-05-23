@@ -56,19 +56,28 @@ Ami-AI/
     ├── chat/
     │   ├── ui.py             # Giao diện tab Chat
     │   └── logic.py          # Logic gọi backend chat
-    └── reconciliation/
-        ├── ui.py             # Tab Đối soát + worker
-        ├── logic.py          # FSM INNER/OUTER → /reconciliation/*
-        ├── models.py
-        ├── paths.py          # exports/reconciliation/sessions/
-        ├── capture.py        # Chụp cửa sổ
-        ├── dialogs.py       # Preview ảnh / JSON / tin
-        ├── csv_export.py
-        ├── transaction_extract.py
-        ├── bbox.py
-        ├── planner.py
-        ├── automation.py     # Scroll, click (pynput)
-        └── message_store.py
+    ├── ui/
+    │   ├── main_window.py
+    │   ├── chat/chat_widget.py
+    │   └── reconciliation/
+    │       ├── reconciliation_widget.py  # Tab Đối soát + worker QThread
+    │       └── dialogs.py              # Preview ảnh / JSON / tin
+    └── logic/
+        ├── api_client.py
+        └── reconciliation/
+            ├── orchestrator.py       # FSM INNER/OUTER → /reconciliation/*
+            ├── screenshot.py         # Chụp cửa sổ / vùng chat
+            ├── mouse_control.py      # Scroll, click (pynput)
+            ├── window_checker.py
+            ├── bbox.py
+            ├── planner.py
+            ├── models.py
+            ├── paths.py              # exports/reconciliation/sessions/
+            ├── message_store.py
+            ├── chat_sessions.py
+            ├── csv_export.py
+            ├── transaction_extract.py
+            └── date_filter.py
 ```
 
 ## Module Chat
@@ -81,7 +90,7 @@ Ami-AI/
 - **Spec:** `markdown.md` — capture, OCR, inner/outer loop, CSV/JSON export.
 - **Luồng:** App capture → `POST /reconciliation/perceive` (hoặc `/ocr`) → plan → act → `transactions.json` → `POST /reconciliation/analyze`.
 - **Export:** `exports/reconciliation/sessions/{session_id}/`
-- **File chính:** `backend/reconciliation/*`, `app/reconciliation/*`
+- **File chính:** `backend/reconciliation/*`, `app/logic/reconciliation/*`, `app/ui/reconciliation/*`
 
 ## API Backend
 

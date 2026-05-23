@@ -53,6 +53,14 @@ _MONEY_ORDER: tuple[re.Pattern[str], ...] = (
 )
 
 
+# OCR hay thiếu "VND" — nhận qua ngữ cảnh chuyển khoản + số nhóm nghìn
+_TRANSFER_CONTEXT = re.compile(
+    r"chuy[eê]n\s*kho[aả]n|chuy[eê]n\s*t[ií]en|chuyen\s*tien|gd\s*thanh\s*cong|"
+    r"giao\s*d[iị]ch\s*thanh\s*cong|napas|ft\d{6,}",
+    re.IGNORECASE,
+)
+
+
 def find_transaction_money(text: str) -> re.Match[str] | None:
     """Trả match đầu tiên theo độ ưu tiên; None nếu không có mẫu tiền hợp lệ."""
     if not (text or "").strip():
@@ -61,6 +69,17 @@ def find_transaction_money(text: str) -> re.Match[str] | None:
         m = rx.search(text)
         if m:
             return m
+    if _TRANSFER_CONTEXT.search(text):
+        gm = GROUPED_AMOUNT.search(text)
+        if gm:
+            return gm
+        # Số tiền đơn (OCR): 33788, 1 380 000
+        loose = re.search(
+            r"\b(\d{1,3}(?:\s\d{3}){1,4}|\d{4,9})\b",
+            text,
+        )
+        if loose:
+            return loose
     return None
 
 

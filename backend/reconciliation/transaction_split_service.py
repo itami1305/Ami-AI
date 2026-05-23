@@ -33,6 +33,13 @@ from backend.reconciliation.transaction_detector import (
     make_dedupe_key,
     parse_summary_lines,
 )
+from backend.reconciliation.transfer_receipt import (
+    is_multi_transaction_segment,
+    is_transfer_receipt_text,
+    parse_bank_sms_line,
+    parse_transfer_receipt,
+    split_bank_transaction_lines,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -69,9 +76,23 @@ Schema JSON bắt buộc:
 }
 
 Quy tắc:
-- Không bịa số tiền/mã FT không có trong văn bản.
+- Không bịa số tiền/mã giao dịch không có trong văn bản.
 - Nếu không có giao dịch: "transactions": [].
-- amount chỉ khi có số tiền rõ (kèm VND/+/- hoặc SMS ngân hàng).
+- amount chỉ khi có số tiền rõ (kèm VND hoặc dòng "So tien").
+- Mã GD có thể là FT..., IZOK..., IBFT... (OCR có thể sai: IZOK265028XM6oo0).
+- Một khối OCR nhiều dòng (ảnh chụp app ngân hàng) = thường chỉ 1 giao dịch.
+
+Ví dụ OCR ảnh VietinBank (một giao dịch):
+VetinBank
+Chuyển tlến thành công
+138,000 VND
+02/05/2026 16-00
+IZOK265028XM6oo0
+HO THI THANH MAI
+NGUYEN VAN CHUONG
+Chuyen tien
+→ bank: VIETINBANK, amount: 138,000, date: 02/05/2026, time: 16:00,
+  transaction_code: IZOK265028XM6oo0, beneficiary: HO THI THANH MAI, content: Chuyen tien / NGUYEN VAN CHUONG
 """
 
 
@@ -103,7 +124,8 @@ def _new_tx_id(session_id: str, seq: int) -> str:
 
 
 def _build_user_prompt(segment: ChatSegmentInfo, app_type: str) -> str:
-    payload = {
+    ocr_text = segment.text or ""
+    payload: dict = {
         "app_type": app_type,
         "segment_id": segment.id,
         "chat_id": segment.chat_id,
@@ -115,8 +137,23 @@ def _build_user_prompt(segment: ChatSegmentInfo, app_type: str) -> str:
         "marker_before": segment.marker_before,
         "marker_after": segment.marker_after,
         "member_count": segment.member_count,
-        "ocr_text": segment.text,
+        "ocr_text": ocr_text,
     }
+    if is_transfer_receipt_text(ocr_text):
+        hint = parse_transfer_receipt(
+            ocr_text,
+            sender=segment.sender or segment.role or "",
+            time=segment.time or "",
+        )
+        payload["ocr_kind"] = "transfer_receipt_image"
+        payload["rule_parse_hint"] = {
+            "amount": hint.amount if hint else "",
+            "bank": hint.bank if hint else "",
+            "transaction_code": hint.transaction_code if hint else "",
+            "account_number": hint.account_number if hint else "",
+            "beneficiary": hint.beneficiary if hint else "",
+            "content": hint.content if hint else "",
+        }
     return (
         "Phân tích đoạn chat sau và trả JSON theo schema đã cho:\n\n"
         f"{json.dumps(payload, ensure_ascii=False, indent=2)}"
@@ -214,6 +251,67 @@ def _llm_items_to_records(
     return records
 
 
+def _receipt_to_record(
+    det,
+    *,
+    req: SplitTransactionsRequest,
+    segment: ChatSegmentInfo,
+    text: str,
+) -> TransactionRecord | None:
+    if not det or not det.is_transaction:
+        return None
+    now = datetime.now(timezone.utc).isoformat()
+    tx_date = det.date or segment.date or ""
+    if not tx_date:
+        m = re.search(r"(\d{1,2}/\d{1,2}/\d{4})", text)
+        if m:
+            tx_date = m.group(1)
+    tx_time = det.time or segment.time or ""
+    return TransactionRecord(
+        id=_new_tx_id(req.session_id, 1),
+        session_id=req.session_id,
+        app_type=req.app_type,
+        chat_id=segment.chat_id,
+        chat_name=segment.chat_name,
+        message_id=segment.id,
+        parent_message_id=segment.id,
+        line_index=0,
+        source_type="transfer_receipt_ocr",
+        transaction_date=tx_date,
+        transaction_time=tx_time,
+        sender=det.sender or segment.sender or segment.role,
+        amount=det.amount,
+        bank=det.bank,
+        transaction_code=det.transaction_code,
+        account_number=det.account_number,
+        beneficiary=det.beneficiary or "",
+        content=det.content,
+        raw_text=text[:2000],
+        summary_excerpt=text[:500],
+        dedupe_key=make_dedupe_key(
+            det.bank, det.amount, det.transaction_code, tx_date, segment.chat_id
+        ),
+        status="extracted",
+        created_at=now,
+    )
+
+
+def _multi_bank_sms_records(req: SplitTransactionsRequest) -> list[TransactionRecord]:
+    """Nhiều dòng SMS GD trong một đoạn chat."""
+    segment = req.segment
+    text = (segment.text or "").strip()
+    sender = segment.sender or segment.role
+    records: list[TransactionRecord] = []
+    for idx, line in enumerate(split_bank_transaction_lines(text)):
+        det = parse_bank_sms_line(line, sender=sender)
+        rec = _receipt_to_record(det, req=req, segment=segment, text=line)
+        if rec:
+            rec.line_index = idx
+            rec.source_type = "bank_sms_lines"
+            records.append(rec)
+    return records
+
+
 def _fallback_rule_split(req: SplitTransactionsRequest) -> list[TransactionRecord]:
     """Fallback rule-based khi Ollama lỗi hoặc use_llm=False."""
     segment = req.segment
@@ -223,6 +321,17 @@ def _fallback_rule_split(req: SplitTransactionsRequest) -> list[TransactionRecor
 
     sender = segment.sender or segment.role
     time_hint = segment.date or segment.time
+
+    if is_multi_transaction_segment(text):
+        multi = _multi_bank_sms_records(req)
+        if multi:
+            return multi
+
+    if is_transfer_receipt_text(text):
+        receipt = parse_transfer_receipt(text, sender=sender, time=time_hint)
+        rec = _receipt_to_record(receipt, req=req, segment=segment, text=text)
+        if rec:
+            return [rec]
     parsed = parse_summary_lines(
         ParseSummaryRequest(
             text=text,
@@ -280,6 +389,14 @@ async def split_chat_transactions(req: SplitTransactionsRequest) -> SplitTransac
     Tách giao dịch từ đoạn chat → Ollama JSON → TransactionRecord → CSV (tùy chọn).
     """
     segment = req.segment
+    if not segment.is_transaction:
+        return SplitTransactionsResponse(
+            success=True,
+            model="skipped",
+            transaction_count=0,
+            transactions=[],
+            error="Đoạn chat không được đánh dấu có giao dịch.",
+        )
     text = (segment.text or "").strip()
     if not text:
         return SplitTransactionsResponse(
@@ -288,6 +405,25 @@ async def split_chat_transactions(req: SplitTransactionsRequest) -> SplitTransac
             transaction_count=0,
             transactions=[],
             error="Đoạn chat rỗng.",
+        )
+
+    # Bill CK đơn hoặc nhiều dòng SMS GD: rule-based, không chờ Ollama.
+    if is_multi_transaction_segment(text) or is_transfer_receipt_text(text):
+        records = _fallback_rule_split(req)
+        for i, rec in enumerate(records):
+            rec.id = _new_tx_id(req.session_id, i + 1)
+        model = "bank_sms_rules" if is_multi_transaction_segment(text) else "transfer_receipt_rules"
+        csv_path: str | None = None
+        if req.save_csv and records:
+            path = _resolve_csv_path(req)
+            append_transactions_csv(path, records)
+            csv_path = str(path.resolve())
+        return SplitTransactionsResponse(
+            success=bool(records),
+            model=model,
+            transaction_count=len(records),
+            transactions=records,
+            csv_path=csv_path,
         )
 
     raw_llm_json: dict | None = None
@@ -308,6 +444,8 @@ async def split_chat_transactions(req: SplitTransactionsRequest) -> SplitTransac
         except Exception as exc:
             logger.warning("LLM split failed, fallback rules: %s", exc)
             error = str(exc)
+            records = _fallback_rule_split(req)
+        if not records:
             records = _fallback_rule_split(req)
     else:
         records = _fallback_rule_split(req)

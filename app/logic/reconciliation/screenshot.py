@@ -237,6 +237,19 @@ def infer_layout_app_type(title: str, target: CaptureTargetId) -> str:
     return "zalo_pc"
 
 
+def focus_capture_target(target: CaptureTargetId = "zalo") -> bool:
+    """Đưa cửa sổ Zalo/Chrome lên foreground trước click/cuộn."""
+    if sys.platform != "win32":
+        return False
+    _ensure_windows_dpi_awareness()
+    try:
+        hwnd, _, _ = find_window(target)
+        _focus_window(hwnd)
+        return True
+    except CaptureError:
+        return False
+
+
 def capture_window(target: CaptureTargetId = "zalo") -> tuple[bytes, CaptureInfo]:
     _ensure_windows_dpi_awareness()
     hwnd, title, rect = find_window(target)
@@ -344,6 +357,7 @@ __all__ = [
     "capture_region",
     "capture_window",
     "chat_region_screen_rect",
+    "focus_capture_target",
     "infer_layout_app_type",
     "list_open_targets",
 ]

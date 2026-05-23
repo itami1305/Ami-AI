@@ -23,9 +23,9 @@ Hai module nghiệp vụ độc lập trong cùng một ứng dụng:
 flowchart LR
   subgraph client [Win App - app/]
     UI[PySide6 UI]
-    CAP[capture.py]
-    AUTO[automation.py]
-    LOGIC[reconciliation/logic.py]
+    CAP[screenshot.py]
+    AUTO[mouse_control.py]
+    LOGIC[orchestrator.py]
     UI --> LOGIC
     LOGIC --> CAP
     LOGIC --> AUTO
@@ -103,19 +103,19 @@ sequenceDiagram
 
 ```text
 ┌─────────────────────────────────────────────────────────────────┐
-│  UI (app/reconciliation/ui.py)                                   │
+│  UI (app/ui/reconciliation/reconciliation_widget.py)             │
 │  - Cấu hình: stop_date, app chụp, max_chats                      │
 │  - Worker QThread: run_full | run_chat_segment | perceive_once   │
 └────────────────────────────┬────────────────────────────────────┘
                              │
 ┌────────────────────────────▼────────────────────────────────────┐
-│  ReconciliationLogic (app/reconciliation/logic.py)               │
+│  ReconciliationOrchestrator (app/logic/reconciliation/orchestrator.py) │
 │  FSM: CAPTURE → PERCEIVE → (xử lý tin) → PLAN → ACT              │
 │  OUTER LOOP (nhiều chat) / INNER LOOP (một chat)                 │
 └─────┬──────────────────┬──────────────────┬─────────────────────┘
       │ capture            │ HTTP API          │ automation
       ▼                    ▼                   ▼
- capture.py          api_client.py      automation.py
+ screenshot.py       api_client.py      mouse_control.py
  (Zalo/Chrome)       /reconciliation/*   scroll, click bbox
 ```
 
@@ -165,7 +165,7 @@ flowchart TD
   I5 -->|2 vòng không tin mới| END
 ```
 
-**CAPTURE** (`app/reconciliation/capture.py`):
+**CAPTURE** (`app/logic/reconciliation/screenshot.py`):
 
 - Tìm cửa sổ Zalo PC hoặc Chrome (Messenger).
 - Chụp vùng client (bỏ header theo `CHAT_TOP_SKIP_PX`).
@@ -188,10 +188,10 @@ flowchart TD
 
 - Backend `planner_service` + cache phiên (`processed_chat_ids`).
 - Trả `AgentAction`: `scroll`, `open_chat`, `stop_inner`, `stop_outer`.
-- Confidence &lt; 0.75 hoặc lỗi API → `rule_planner` local (`app/reconciliation/planner.py`).
+- Confidence &lt; 0.75 hoặc lỗi API → `rule_planner` local (`app/logic/reconciliation/planner.py`).
 - Chế độ đoạn: không `open_chat`; `stop_outer` được đổi thành `stop_inner`.
 
-**ACT** (`app/reconciliation/automation.py`):
+**ACT** (`app/logic/reconciliation/mouse_control.py`):
 
 - `scroll`: focus khung chat, cuộn lên (đọc lịch sử cũ hơn).
 - `open_chat`: click tâm bbox mục sidebar.
@@ -353,7 +353,7 @@ flowchart TB
 
 ## 8. Trạng thái FSM (tham chiếu)
 
-`FsmState` trong `app/reconciliation/models.py`:
+`FsmState` trong `app/logic/reconciliation/models.py`:
 
 | Trạng thái | Khi nào |
 |------------|---------|
